@@ -24,7 +24,7 @@
 
 /public/assets
 .byebug_history
-
+.tracker.cson
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
@@ -36,3 +36,4 @@ yarn-debug.log*
 .yarn-integrity
 /config/database.yml
 /.idea/.gitignore
+.gitignore
