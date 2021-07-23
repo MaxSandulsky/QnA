@@ -1,6 +1,6 @@
 class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
 
-  validates :title, :body, presence: true
-  validates :title, uniqueness: { case_sensitive: false }
+  validates :body, presence: true
+  validates :title, presence: true
 end
