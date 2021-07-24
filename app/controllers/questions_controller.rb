@@ -5,8 +5,6 @@ class QuestionsController < ApplicationController
 
   def show; end
 
-  def edit; end
-
   def new; end
 
   def create
@@ -17,20 +15,6 @@ class QuestionsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def update
-    if question.update(question_params)
-      redirect_to question
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    question.destroy
-
-    redirect_to questions_path
   end
 
   private
