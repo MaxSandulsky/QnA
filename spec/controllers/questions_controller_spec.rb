@@ -4,7 +4,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe 'GET #index' do
     let(:questions) { create_list(:question, 3) }
 
-    before { get :index}
+    before { get :index }
 
     it 'populates all questions' do
       expect(assigns(:questions)).to match_array(questions)
@@ -53,7 +53,9 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with invalid attributes' do
       it 'didn`t save question' do
-        expect { post :create, params: { question: attributes_for(:question, :invalid) } }.to_not change(Question, :count)
+        expect do
+          post :create, params: { question: attributes_for(:question, :invalid) }
+        end.to_not change(Question, :count)
       end
 
       it 'render new view' do

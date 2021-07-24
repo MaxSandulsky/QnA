@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :question do
-    title { "Some question" }
-    body { "Some desctription" }
+    title { 'Some question' }
+    body { 'Some desctription' }
 
     factory :question_with_answers do
       transient do
