@@ -16,7 +16,13 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #show' do
+    let(:question) { create(:question_with_answers, answers_count: 3) }
+
     before { get :show, params: { id: question } }
+
+    it 'populates all answers related to question' do
+      expect(assigns(:answers)).to match_array(question.answers)
+    end
 
     it 'render show view' do
       expect(response).to render_template :show
