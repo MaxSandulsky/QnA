@@ -3,17 +3,45 @@ ru:
     sessions:
       user:
         signed_in: 'Добро пожаловать!'
+        signed_out: 'Вы вышли из аккаунта'
+    registrations:
+      user:
+        signed_up: 'Добро пожаловать!'
+
+  shared:
+    navigation:
+      sign_out: 'Выйти'
+      sign_in: 'Войти'
 
   questions:
+    destroy:
+      success: 'Вопрос был удален'
+      ownership_violation: 'Вопрос вам не принадлежит'
     create:
       success: 'Ваш вопрос успешно создан!'
+    question:
+      answer_count: 'количество ответов'
 
+  answers:
+    create:
+      success: 'Ваш ответ успешно сохранен!'
+    destroy:
+      success: 'Ответ был удален'
+      ownership_violation: 'Вопрос вам не принадлежит'
   activerecord:
     errors:
       models:
+        user:
+          attributes:
+            email:
+              taken: 'Аккаунт с таким именем уже существует!'
         question:
           attributes:
             body:
               blank: 'Тело вопроса не может быть пустым'
             title:
               blank: 'Заголовок вопроса не может быть пустым'
+        answer:
+          attributes:
+            body:
+              blank: 'Тело ответа не может быть пустым!'

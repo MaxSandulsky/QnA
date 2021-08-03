@@ -5,14 +5,6 @@ RSpec.describe AnswersController, type: :controller do
 
   before { login(user) }
 
-  describe 'GET #new' do
-    before { get :new, params: { question_id: question } }
-
-    it 'render new view' do
-      expect(response).to render_template :new
-    end
-  end
-
   describe 'POST #create' do
     let(:post_create) { post :create, params: { question_id: question, answer: answer_params } }
 
@@ -31,17 +23,45 @@ RSpec.describe AnswersController, type: :controller do
     end
 
     context 'with invalid attributes' do
-      let(:answer_params) { attributes_for(:answer, :invalid) }
+      render_views
 
-      it 'didn`t save answer' do
-        expect { post_create }.to_not change(question.answers, :count)
-      end
+      let(:answer_params) { attributes_for(:answer, :invalid) }
 
       it 'render new view' do
         post_create
 
-        expect(response).to render_template :new
+        expect(response).to render_template(partial: 'answers/_new')
       end
+
+      it 'didn`t save answer' do
+        expect { post_create }.to_not change(question.answers, :count)
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    context "delete users answer" do
+      let!(:own_answer) { create(:answer, author: user) }
+      let(:delete_destroy) { delete :destroy, params: { id: own_answer } }
+
+      it "destroy answer" do
+        expect { delete_destroy }.to change(Answer, :count).by(-1)
+      end
+    end
+
+    context "delete unfamiliar answer" do
+      let!(:answer) { create(:answer) }
+      let(:delete_destroy) { delete :destroy, params: { id: answer } }
+
+      it "don't destroy answer" do
+        expect { delete_destroy }.to change(Answer, :count).by(0)
+      end
+    end
+
+    it "redirect to question" do
+      delete :destroy, params: { id: answer }
+
+      expect(response).to redirect_to answer.question
     end
   end
 end

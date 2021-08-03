@@ -1,6 +1,6 @@
 RSpec.describe QuestionsController, type: :controller do
-  let(:question) { create(:question) }
   let(:user) { create(:user)}
+  let(:question) { create(:question) }
 
   before { login(user) }
 
@@ -62,6 +62,38 @@ RSpec.describe QuestionsController, type: :controller do
       it 'render new view' do
         post :create, params: { question: attributes_for(:question, :invalid) }
         expect(response).to render_template :new
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    context "delete users question" do
+      let!(:own_question) { create(:question, author: user) }
+      let(:delete_destroy) { delete :destroy, params: { id: own_question } }
+
+      it "destroy question" do
+        expect { delete_destroy }.to change(Question, :count).by(-1)
+      end
+
+      it "redirect to all questions" do
+        delete_destroy
+
+        expect(response).to redirect_to questions_path
+      end
+    end
+
+    context "delete unfamiliar question" do
+      let!(:question) { create(:question) }
+      let(:delete_destroy) { delete :destroy, params: { id: question } }
+
+      it "don't destroy question" do
+        expect { delete_destroy }.to change(Question, :count).by(0)
+      end
+
+      it "render question" do
+        delete_destroy
+
+        expect(response).to redirect_to question
       end
     end
   end

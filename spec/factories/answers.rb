@@ -3,6 +3,7 @@ FactoryBot.define do
     body { 'Some answer' }
 
     question
+    author factory: :user
 
     trait :invalid do
       body { nil }

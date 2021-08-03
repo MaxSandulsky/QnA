@@ -1,0 +1,8 @@
+-unless answer.new_record?
+  div id= answer.id
+    p
+      ul
+        li= link_to 'Удалить ответ', answer_path(answer), method: :delete
+        li= answer.body
+        li= answer.author.email
+        li= answer.created_at

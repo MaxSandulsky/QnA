@@ -1,2 +1,10 @@
 h1= question.title
 h2= question.body
+
+span= link_to 'Удалить вопрос', question_path(question), method: :delete
+
+= render question.answers
+div class="answer"
+  = render 'shared/errors', resource: @answer
+  = render 'answers/new', answer: @answer ? @answer : question.answers.new
+  = button_to 'I have answer', question_answers_path(question), class: "answer-button"

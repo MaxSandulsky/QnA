@@ -1,0 +1,6 @@
+= form_with model: answer, url: question_answers_path(answer.question),
+                           local: true,
+                           class: 'form-answer hide' do |form|
+ = form.label :body
+ = form.text_area :body
+ = form.submit 'Save'

@@ -3,7 +3,7 @@ feature "User can sign in", %q{
   As unauthenticated user
   I'd like to be able to sign in
  } do
-   given(:user) {create(:user) }
+   given(:user) { create(:user) }
 
    background { visit new_user_session_path }
 
