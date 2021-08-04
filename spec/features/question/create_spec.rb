@@ -1,19 +1,19 @@
-feature 'User can create question', %q{
+describe 'User can create question', "
   In order to get answer from a community
   As an authenticated user
   I'd like to be able to ask the question
-} do
+" do
   describe 'Authenticated user' do
-    given(:user) {create(:user) }
+    let(:user) { create(:user) }
 
-    background do
+    before do
       login user
 
       visit questions_path
       click_on 'Ask question'
     end
 
-    scenario 'tries to create question' do
+    it 'tries to create question' do
       fill_in 'Title', with: 'Test question title'
       fill_in 'Body', with: 'Body for test question'
       click_on 'Ask'
@@ -22,14 +22,14 @@ feature 'User can create question', %q{
       expect(page).to have_content 'Ваш вопрос успешно создан!'
     end
 
-    scenario 'tries to create question with errors' do
+    it 'tries to create question with errors' do
       click_on 'Ask'
 
       expect(page).to have_content 'Заголовок вопроса не может быть пустым'
     end
   end
 
-  scenario 'Unauthenticated user tries to create question' do
+  it 'Unauthenticated user tries to create question' do
     visit questions_path
     click_on 'Ask question'
 

@@ -1,11 +1,11 @@
-feature "User can sign out", %q{
+describe 'User can sign out', "
   In order to exit
   As authenticated user
   I'd like to be able to sign out
- } do
-   given(:user) { create(:user) }
+ " do
+   let(:user) { create(:user) }
 
-   scenario "Authenticated user tries to sign out" do
+   it 'Authenticated user tries to sign out' do
      login user
 
      click_link('Выйти')

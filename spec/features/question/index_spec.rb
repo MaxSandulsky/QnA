@@ -1,25 +1,21 @@
-feature 'User can see all questions', %q{
+describe 'User can see all questions', "
   In order to see questions from a community
   As any user
   I'd like to be able to see the questions
-} do
+" do
+  let(:user) { create(:user) }
+  let(:questions) { create_list(:question_with_answers, 2) }
 
-  given(:user) { create(:user) }
-  given(:questions) { 2.times { create(:question_with_answers) } }
-
-  scenario 'Authenticated user tries to see questions', js: true do
-
-
+  it 'Authenticated user tries to see questions' do
     login user
-
     visit questions_path(questions)
 
-    expect(page.all('.question').count).to be > 0
+    expect(page).to have_content('Some question', minimum: 2)
   end
 
-  scenario 'Unauthenticated user tries to see questions', js: true do
+  it 'Unauthenticated user tries to see questions' do
     visit questions_path(questions)
 
-    expect(page.all('.question').count).to be > 0
+    expect(page).to have_content('Some question', minimum: 2)
   end
 end

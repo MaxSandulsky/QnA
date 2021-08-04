@@ -1,13 +1,13 @@
-feature 'User can delete own answers', %q{
+describe 'User can delete own answers', "
   I'd like to be able to delete owned answer
   As an authenticated user
-} do
-  given(:user) { create(:user) }
-  given(:question) { create(:question) }
+" do
+  let(:user) { create(:user) }
+  let(:question) { create(:question) }
 
-  background { login user }
+  before { login user }
 
-  scenario 'tries to delete own answer' do
+  it 'tries to delete own answer' do
     create(:answer, question: question, author: user, body: 'Answer to remove')
     visit question_path(question)
     click_on 'Удалить ответ'
@@ -16,7 +16,7 @@ feature 'User can delete own answers', %q{
     expect(page).not_to have_content('Answer to remove')
   end
 
-  scenario 'tries to delete unfamiliar question' do
+  it 'tries to delete unfamiliar question' do
     create(:answer, question: question, body: 'Answer should remain')
     visit question_path(question)
     click_on 'Удалить ответ'

@@ -1,14 +1,14 @@
-feature 'User can delete own questions', %q{
+describe 'User can delete own questions', "
   I'd like to be able to delete owned question
   As an authenticated user
-} do
-  given(:user) { create(:user) }
-  given(:question) { create(:question, author: user, title: 'Question to remove') }
-  given(:unfamiliar_question) { create(:question, title: 'Question should remain') }
+" do
+  let(:user) { create(:user) }
+  let(:question) { create(:question, author: user, title: 'Question to remove') }
+  let(:unfamiliar_question) { create(:question, title: 'Question should remain') }
 
-  background { login user }
+  before { login user }
 
-  scenario 'tries to delete own question' do
+  it 'tries to delete own question' do
     visit question_path(question)
     click_on 'Удалить вопрос'
 
@@ -16,7 +16,7 @@ feature 'User can delete own questions', %q{
     expect(page).not_to have_content('Question to remove')
   end
 
-  scenario 'tries to delete unfamiliar question' do
+  it 'tries to delete unfamiliar question' do
     visit question_path(unfamiliar_question)
     click_on 'Удалить вопрос'
 

@@ -1,12 +1,13 @@
-feature "User can sign up", %q{
+describe 'User can sign up', "
   In order to ask questions
   As unauthenticated user
   I'd like to be able to sign up
- } do
-   background { visit new_user_registration_path }
-   given(:user) { create(:user) }
+ " do
+   before { visit new_user_registration_path }
 
-   scenario "Unregistered user tries to sign up" do
+   let(:user) { create(:user) }
+
+   it 'Unregistered user tries to sign up' do
      fill_in 'Email', with: 'new_user@email'
      fill_in 'Password', with: 'new_user.password'
      fill_in 'Password confirmation', with: 'new_user.password'
@@ -15,7 +16,7 @@ feature "User can sign up", %q{
      expect(page).to have_content 'Добро пожаловать!'
    end
 
-   scenario "Registered user tries to sign up" do
+   it 'Registered user tries to sign up' do
      fill_in 'Email', with: user.email
      fill_in 'Password', with: '12345678'
      fill_in 'Password confirmation', with: '12345678'

@@ -1,7 +1,7 @@
 RSpec.describe AnswersController, type: :controller do
   let(:answer) { create(:answer) }
   let(:question) { create(:question) }
-  let(:user) { create(:user)}
+  let(:user) { create(:user) }
 
   before { login(user) }
 
@@ -34,22 +34,22 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'didn`t save answer' do
-        expect { post_create }.to_not change(question.answers, :count)
+        expect { post_create }.not_to change(question.answers, :count)
       end
     end
   end
 
   describe 'DELETE #destroy' do
-    context "delete users answer" do
+    context 'delete users answer' do
       let!(:own_answer) { create(:answer, author: user) }
       let(:delete_destroy) { delete :destroy, params: { id: own_answer } }
 
-      it "destroy answer" do
+      it 'destroy answer' do
         expect { delete_destroy }.to change(Answer, :count).by(-1)
       end
     end
 
-    context "delete unfamiliar answer" do
+    context 'delete unfamiliar answer' do
       let!(:answer) { create(:answer) }
       let(:delete_destroy) { delete :destroy, params: { id: answer } }
 
@@ -58,7 +58,7 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
 
-    it "redirect to question" do
+    it 'redirect to question' do
       delete :destroy, params: { id: answer }
 
       expect(response).to redirect_to answer.question
