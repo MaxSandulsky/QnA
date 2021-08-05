@@ -1,4 +1,4 @@
-describe 'User can sign out', "
+feature 'User can sign out', "
   In order to exit
   As authenticated user
   I'd like to be able to sign out

@@ -23,14 +23,12 @@ RSpec.describe AnswersController, type: :controller do
     end
 
     context 'with invalid attributes' do
-      render_views
-
       let(:answer_params) { attributes_for(:answer, :invalid) }
 
       it 'render new view' do
         post_create
 
-        expect(response).to render_template(partial: 'answers/_new')
+        expect(response).to render_template('questions/show')
       end
 
       it 'didn`t save answer' do
@@ -54,7 +52,7 @@ RSpec.describe AnswersController, type: :controller do
       let(:delete_destroy) { delete :destroy, params: { id: answer } }
 
       it "don't destroy answer" do
-        expect { delete_destroy }.to change(Answer, :count).by(0)
+        expect { delete_destroy }.not_to change(Answer, :count)
       end
     end
 

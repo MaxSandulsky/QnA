@@ -3,5 +3,5 @@ class Question < ApplicationRecord
 
   has_many :answers, dependent: :destroy
 
-  validates :body, :title, :author, presence: true
+  validates :body, :title, presence: true
 end

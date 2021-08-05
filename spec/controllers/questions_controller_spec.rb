@@ -91,7 +91,7 @@ RSpec.describe QuestionsController, type: :controller do
       let(:delete_destroy) { delete :destroy, params: { id: question } }
 
       it "don't destroy question" do
-        expect { delete_destroy }.to change(Question, :count).by(0)
+        expect { delete_destroy }.not_to change(Question, :count)
       end
 
       it 'render question' do

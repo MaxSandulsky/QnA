@@ -1,4 +1,4 @@
-describe 'User can create question', "
+feature 'User can create question', "
   In order to get answer from a community
   As an authenticated user
   I'd like to be able to ask the question
@@ -6,7 +6,7 @@ describe 'User can create question', "
   describe 'Authenticated user' do
     let(:user) { create(:user) }
 
-    before do
+    background do
       login user
 
       visit questions_path

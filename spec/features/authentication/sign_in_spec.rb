@@ -1,11 +1,11 @@
-describe 'User can sign in', "
+feature 'User can sign in', "
   In order to ask questions
   As unauthenticated user
   I'd like to be able to sign in
  " do
    let(:user) { create(:user) }
 
-   before { visit new_user_session_path }
+   background { visit new_user_session_path }
 
    it 'Registered user tries to sign in' do
      fill_in 'Email', with: user.email

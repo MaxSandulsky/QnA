@@ -4,4 +4,8 @@ class User < ApplicationRecord
 
   has_many :answers, inverse_of: 'author', foreign_key: 'author_id'
   has_many :questions, inverse_of: 'author', foreign_key: 'author_id'
+
+  def author_of?(subject)
+    subject.author_id == id
+  end
 end

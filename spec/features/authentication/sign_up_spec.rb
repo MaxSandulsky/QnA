@@ -1,9 +1,9 @@
-describe 'User can sign up', "
+feature 'User can sign up', "
   In order to ask questions
   As unauthenticated user
   I'd like to be able to sign up
  " do
-   before { visit new_user_registration_path }
+   background { visit new_user_registration_path }
 
    let(:user) { create(:user) }
 

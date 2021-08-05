@@ -1,4 +1,4 @@
-describe 'User can create answer', "
+feature 'User can create answer', "
   In order to give an answer to question
   As an authenticated user
   I'd like to be able to write the answer to question
@@ -8,7 +8,7 @@ describe 'User can create answer', "
   describe 'Authenticated user', js: true do
     let(:user) { create(:user) }
 
-    before do
+    background do
       login user
 
       visit question_path(question)
