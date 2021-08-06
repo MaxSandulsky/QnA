@@ -1,7 +1,7 @@
 h1= question.title
 h2= question.body
 
-span= link_to 'Удалить вопрос', question_path(question), method: :delete
+span= link_to_delete(question)
 
 = render question.answers
 div class="answer"

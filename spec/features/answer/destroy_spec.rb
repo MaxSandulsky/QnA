@@ -15,7 +15,7 @@ feature 'User can delete own answers', "
 
       expect(page).to have_content('Answer to remove')
 
-      click_link('Удалить ответ', href: answer_path(own_answer))
+      click_link('Удалить', href: answer_path(own_answer))
 
       expect(page).to have_content('Ответ был удален')
       expect(page).not_to have_content('Answer to remove')
@@ -23,9 +23,8 @@ feature 'User can delete own answers', "
 
     it 'tries to delete unfamiliar answer' do
       visit question_path(question)
-      click_link('Удалить ответ', href: answer_path(answer))
 
-      expect(page).to have_content('Вопрос вам не принадлежит')
+      expect(page).not_to have_link('Удалить', href: answer_path(answer))
       expect(page).to have_content('Answer should remain')
     end
   end
@@ -34,11 +33,8 @@ feature 'User can delete own answers', "
     it 'tries to delete answer' do
       visit question_path(question)
 
+      expect(page).not_to have_link('Удалить', href: answer_path(answer))
       expect(page).to have_content('Answer to remove')
-
-      click_link('Удалить ответ', href: answer_path(answer))
-
-      expect(page).to have_content 'Forgot your password?'
     end
   end
 end

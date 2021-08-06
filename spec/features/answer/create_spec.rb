@@ -12,7 +12,7 @@ feature 'User can create answer', "
       login user
 
       visit question_path(question)
-      page.execute_script("document.querySelector('.answer-button').click()")
+      click_on('I have answer')
     end
 
     it 'can see appiared form' do
@@ -37,7 +37,7 @@ feature 'User can create answer', "
 
   it 'Unregistered user tries to save answer', js: true do
     visit question_path(question)
-    page.execute_script("document.querySelector('.answer-button').click()")
+    click_on('I have answer')
     click_on 'Save'
 
     expect(page).to have_content 'Forgot your password?'
