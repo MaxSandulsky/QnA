@@ -10,11 +10,11 @@ RSpec.describe User, type: :model do
     let(:dif_question) { create(:question) }
 
     it 'should return true if user is an author of' do
-      expect(user.author_of?(question)).to be(true)
+      expect(user).to be_author_of(question)
     end
 
     it 'should return false if user isn an author of' do
-      expect(user.author_of?(dif_question)).to be(false)
+      expect(user).not_to be_author_of(dif_question)
     end
   end
 end
