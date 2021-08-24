@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!, except: %i[index show]
+
   def index
     @questions = Question.all
   end
@@ -10,12 +12,21 @@ class QuestionsController < ApplicationController
   def new; end
 
   def create
-    @question = Question.new(question_params)
+    @question = current_user.questions.build(question_params)
 
     if question.save
-      redirect_to question
+      redirect_to question, notice: t('.success')
     else
       render :new
+    end
+  end
+
+  def destroy
+    if current_user.author_of?(question)
+      question.destroy
+      redirect_to questions_path, notice: t('.success')
+    else
+      redirect_to question, notice: t('.ownership_violation')
     end
   end
 

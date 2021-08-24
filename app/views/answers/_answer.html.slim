@@ -1,0 +1,8 @@
+-unless answer.new_record?
+  div id= answer.id
+    p
+      ul
+        li= link_to_delete(answer)
+        li= answer.body
+        li= answer.author.email
+        li= answer.created_at
