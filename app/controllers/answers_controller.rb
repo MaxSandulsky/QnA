@@ -1,20 +1,22 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!
 
   def create
-    @answer = question.answers.build(answer_params)
-    if @answer.save
-      redirect_to question, notice: t('.success')
-    else
-      render 'questions/show', locals: { question: question }
-    end
+    @answer = question.answers.create(answer_params)
   end
 
   def destroy
-    if current_user.author_of?(answer)
-      redirect_to answer.destroy.question, notice: t('.success')
-    else
-      redirect_to answer.question, notice: t('.ownership_violation')
+    answer.destroy.question if current_user.author_of?(answer)
+  end
+
+  def update
+    if params[:answer][:correct] && current_user.author_of?(answer)
+      answer.question.correct_answer.update(correct: false)
+      answer.update(answer_params)
+      render 'answers/mark'
+    elsif current_user.author_of?(answer)
+      answer.update(answer_params)
+      render 'answers/update'
     end
   end
 
@@ -29,6 +31,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body).merge(author: current_user)
+    params.require(:answer).permit(:body, :correct).merge(author: current_user)
   end
 end

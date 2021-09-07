@@ -1,6 +1,5 @@
 RSpec.describe QuestionsController, type: :controller do
   let(:user) { create(:user) }
-  let(:question) { create(:question) }
 
   before { login(user) }
 
@@ -98,6 +97,51 @@ RSpec.describe QuestionsController, type: :controller do
         delete_destroy
 
         expect(response).to redirect_to question
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    let(:patch_update) { patch :update, params: question_params, format: :js }
+    let!(:own_question) { create(:question, author: user) }
+    let!(:question) { create(:question) }
+
+    context 'with valid attributes' do
+      let(:question_params) { { id: own_question, question: { title: 'edited question title', body: 'edited question body' } } }
+
+      it 'should change question attributes' do
+        expect { patch_update }.to change{ own_question.reload.body }.to('edited question body')
+                               .and change{ own_question.reload.title }.to('edited question title')
+      end
+
+      it 'should render update view' do
+        patch_update
+
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'with invalid attributes' do
+      let(:question_params) { { id: own_question, question: { title: '', body: '' } } }
+
+      it 'shouldn`t change question attributes' do
+        expect { patch_update }.to not_change{ own_question.reload.body }
+                               .and not_change{ own_question.reload.title }
+      end
+
+      it 'should render update view' do
+        patch_update
+
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'unfamiliar question' do
+      let(:question_params) { { id: question, question: { title: '', body: '' } } }
+
+      it 'should not edit question' do
+        expect { patch_update }.to not_change{ question.reload.body }
+                               .and not_change{ question.reload.title }
       end
     end
   end

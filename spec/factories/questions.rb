@@ -5,7 +5,7 @@ FactoryBot.define do
 
   factory :question do
     title { 'Some question' }
-    body { 'Some desctription' }
+    body { 'Some description' }
 
     author factory: :user
 

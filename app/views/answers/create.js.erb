@@ -1,0 +1,9 @@
+$('.new-answer-errors').html("<%= render 'shared/errors', resource: @answer %>")
+
+<% if @answer.persisted? %>
+  $('.answers').append("<%= j render @answer %>")
+  $('#answer_body').val('')
+  $('.form-answer-new').addClass('hide')
+  $('.button-answer-new').removeClass('hide')
+  document.getElementById('notice').innerHTML = "<%= t('.create_success') %>"
+<% end %>

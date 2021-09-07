@@ -1,0 +1,7 @@
+h1= question.title
+h2= question.body
+p= link_to_delete_question(question)
+p= link_to_edit_question(question)
+.question-errors
+  = render 'shared/errors', resource: question
+div class="form-question-edit hide" = render "questions/form", question: question

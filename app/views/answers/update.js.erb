@@ -1,0 +1,8 @@
+$('.answer-errors.<%= @answer.id %>').html("<%= render 'shared/errors', resource: @answer %>")
+
+<% unless @answer.errors.present? %>
+  $('div.answer-<%= @answer.id %>').html("<%= j render @answer, answer: @answer %>")
+  $('.form-answer-edit-<%= @answer.id %>').addClass('hide')
+  $('.button-answer-edit-<%= @answer.id %>').removeClass('hide')
+  document.getElementById('notice').innerHTML = "<%= t('.edit_success') %>"
+<% end %>

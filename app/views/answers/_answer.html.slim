@@ -1,8 +1,17 @@
 -unless answer.new_record?
-  div id= answer.id
-    p
-      ul
-        li= link_to_delete(answer)
-        li= answer.body
-        li= answer.author.email
-        li= answer.created_at
+  .inline
+    ul
+      li= answer.body
+      li= answer.author.email
+      li= answer.created_at.to_date
+      div class="answer-errors #{answer.id}"
+  .inline
+    -if answer.correct?
+      = link_to_false_mark(answer)
+    -else
+      = link_to_true_mark(answer)
+div
+  .inline
+    = link_to_delete_answer(answer)
+    = link_to_edit_answer(answer)
+    = render "answers/form_edit", answer: answer
