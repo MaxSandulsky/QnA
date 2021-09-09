@@ -10,6 +10,6 @@ class Question < ApplicationRecord
   end
 
   def correct_answer
-    answers.where(correct: true)
+    answers.find_by(correct: true)
   end
 end

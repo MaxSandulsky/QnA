@@ -1,9 +1,9 @@
-$('.new-answer-errors').html("<%= render 'shared/errors', resource: @answer %>")
+document.querySelector('.new-answer-errors').innerHTML = "<%= render 'shared/errors', resource: @answer %>"
 
 <% if @answer.persisted? %>
-  $('.answers').append("<%= j render @answer %>")
-  $('#answer_body').val('')
-  $('.form-answer-new').addClass('hide')
-  $('.button-answer-new').removeClass('hide')
+  document.querySelector('.answers').insertAdjacentHTML('beforeend', "<div class='answer-<%= @answer.id %>'><%= j render @answer %></div>")
+  document.querySelector('.form-answer-new').querySelector('#answer_body').value = ''
+  document.querySelector('.form-answer-new').classList.add('hide')
+  document.querySelector('.button-answer-new').classList.remove('hide')
   document.getElementById('notice').innerHTML = "<%= t('.create_success') %>"
 <% end %>

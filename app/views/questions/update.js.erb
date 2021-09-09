@@ -1,8 +1,8 @@
-$('.question-errors').html("<%= render 'shared/errors', resource: @question %>")
+document.querySelector('.question-errors').innerHTML = "<%= render 'shared/errors', resource: @question %>"
 
 <% unless @question.errors.present? %>
-  $('.question').html("<%= j render "questions/complete_question", question: @question %>")
-  $('.form-question-edit').addClass('hide')
-  $('.button-question-edit').removeClass('hide')
+  document.querySelector('.complete-question').innerHTML = "<%= j render 'questions/complete_question', question: @question %>"
+  document.querySelector('.form-question-edit').classList.add('hide')
+  document.querySelector('.button-question-edit').classList.remove('hide')
   document.getElementById('notice').innerHTML = "<%= t('.edit_success') %>"
 <% end %>

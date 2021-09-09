@@ -42,8 +42,8 @@ feature 'User can edit his question', %q{
       expect(page).to have_content 'Some description'
       expect(page).to have_content 'Заголовок вопроса не может быть пустым'
       expect(page).to have_content 'Описание вопроса не может быть пустым'
-      find('#question_title').should be_visible
-      find('#question_body').should be_visible
+      expect(find('#question_title')).to be_visible
+      expect(find('#question_body')).to be_visible
     end
   end
 end

@@ -1,12 +1,13 @@
 .question
-  = render "questions/complete_question"
+  .complete-question
+    = render "questions/complete_question"
 
-.answers
-  = render "answers/index"
+  .answers
+    = render "answers/index"
 
-.new-answer-errors
-  = render 'shared/errors', resource: @answer
+  .new-answer-errors
+    = render 'shared/errors', resource: @answer
 
-.new_answer
-  = render 'answers/form_new', answer: @answer ? @answer : question.answers.new
-  = button_to 'I have answer', question_answers_path(question), class: "button-answer-new"
+  .new_answer
+    = render 'answers/form_new', answer: @answer ? @answer : question.answers.new
+    = button_to 'I have answer', question_answers_path(question), class: "button-answer-new"

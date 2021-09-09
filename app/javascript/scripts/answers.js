@@ -26,9 +26,9 @@ export const answer_InlineForm_with_target = (element_class, trigger_class, targ
 
     if (trigger) {
         trigger.addEventListener('click', (event) => {
-            if (event.target.classList.contains(target_class.substring(1))) {
+            if (event.target.classList.contains((target_class + event.target.dataset.answerId ).substring(1))) {
                 event.preventDefault()
-                const element = document.querySelector(element_class + "-" + event.target.dataset.answerId)
+                const element = document.querySelector(element_class + event.target.dataset.answerId)
                 const handler = new InlineForm(element, event.target)
                 handler.formHandler(handler)
             }

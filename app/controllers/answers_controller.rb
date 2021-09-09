@@ -10,10 +10,10 @@ class AnswersController < ApplicationController
   end
 
   def update
-    if params[:answer][:correct] && current_user.author_of?(answer)
-      answer.question.correct_answer.update(correct: false)
+    if current_user.author_of?(answer.question) && !answer_params[:correct].nil?
+      answer.question.answers.each { |answer| answer.update(correct: false) }
       answer.update(answer_params)
-      render 'answers/mark'
+      render 'answers/update'
     elsif current_user.author_of?(answer)
       answer.update(answer_params)
       render 'answers/update'

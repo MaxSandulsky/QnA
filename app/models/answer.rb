@@ -10,8 +10,8 @@ class Answer < ApplicationRecord
     end
 
   def correct_answers
-    if question && question.correct_answer.length >= 1 && self.correct?
-      errors.add(:correct)
+    if question && question.correct_answer.present? && self.correct? && question.correct_answer.id != self.id
+        errors.add(:correct)
     end
   end
 end

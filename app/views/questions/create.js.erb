@@ -1,0 +1,3 @@
+<% if @question.persisted? %>
+  document.querySelector('.question').parentNode.innerHTML = "<%= j render 'questions/show', question: @question %>"
+<% end %>

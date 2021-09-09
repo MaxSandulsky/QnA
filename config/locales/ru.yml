@@ -30,6 +30,8 @@ ru:
       save: "Сохранить"
       title_field: "Заголовок"
       body_field: "Описание"
+    new:
+      question_new: 'Задать новый вопрос'
 
   answers:
     answer:
@@ -46,7 +48,7 @@ ru:
       ownership_violation: 'Вопрос вам не принадлежит'
       delete_success: "Ответ удалён"
     update:
-      edit_success: "Ответ успешно отредактирован"
+      edit_success: "Ответ сохранён"
 
   activerecord:
     errors:

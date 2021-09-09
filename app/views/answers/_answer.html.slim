@@ -4,12 +4,13 @@
       li= answer.body
       li= answer.author.email
       li= answer.created_at.to_date
-      div class="answer-errors #{answer.id}"
+      div class="answer-errors-#{answer.id}"
   .inline
     -if answer.correct?
       = link_to_false_mark(answer)
     -else
       = link_to_true_mark(answer)
+    =link_to '1', answer, class: 'test'
 div
   .inline
     = link_to_delete_answer(answer)

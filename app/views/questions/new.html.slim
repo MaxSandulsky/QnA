@@ -1,4 +1,10 @@
-p= 'Create new Question'
+.tab
+  .question
 
-= render 'shared/errors',  resource: question
-= render 'form'
+p.tab
+    = t('.question_new')
+
+.new-question-errors
+  = render 'shared/errors',  resource: question
+.form-question-new
+  = render 'form'

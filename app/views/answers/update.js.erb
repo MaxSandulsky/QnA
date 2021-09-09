@@ -1,8 +1,6 @@
-$('.answer-errors.<%= @answer.id %>').html("<%= render 'shared/errors', resource: @answer %>")
-
-<% unless @answer.errors.present? %>
-  $('div.answer-<%= @answer.id %>').html("<%= j render @answer, answer: @answer %>")
-  $('.form-answer-edit-<%= @answer.id %>').addClass('hide')
-  $('.button-answer-edit-<%= @answer.id %>').removeClass('hide')
+<% if !@answer.errors.present? %>
+  document.querySelector('.answers').innerHTML = "<%= j render 'answers/index', question: @answer.question %>"
   document.getElementById('notice').innerHTML = "<%= t('.edit_success') %>"
+<% else %>
+  document.querySelector(".answer-errors-<%= @answer.id %>").innerHTML = "<%= render 'shared/errors', resource: @answer %>"
 <% end %>

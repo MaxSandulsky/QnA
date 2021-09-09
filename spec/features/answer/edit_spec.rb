@@ -32,7 +32,7 @@ feature 'User can edit his answer', %q{
         expect(page).to_not have_selector 'textarea'
       end
 
-      expect(page).to have_content 'Ответ успешно отредактирован'
+      expect(page).to have_content 'Ответ сохранён'
     end
 
     scenario 'edits his answer with errors' do
