@@ -36,4 +36,5 @@ yarn-debug.log*
 .yarn-integrity
 /config/database.yml
 /.idea/.gitignore
+.idea
 .gitignore
