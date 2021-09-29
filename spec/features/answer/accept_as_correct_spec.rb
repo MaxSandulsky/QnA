@@ -15,7 +15,7 @@ feature 'User can mark answer as correct', "
     it 'can mark any answer' do
       within(".answer-#{answer.id}") do
         click_on(class: 'answer-mark')
-        
+
         expect(page).to have_css('.correct')
       end
 

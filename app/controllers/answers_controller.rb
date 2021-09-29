@@ -10,15 +10,11 @@ class AnswersController < ApplicationController
   end
 
   def update
-    if current_user.author_of?(answer)
-      render 'answers/update' if answer.update(upd_answ_params)
-    end
+    render 'answers/update' if current_user.author_of?(answer) && answer.update(upd_answ_params)
   end
 
   def mark
-    if current_user.author_of?(answer.question)
-      render 'answers/mark' if answer.mark_as(upd_answ_params[:correct])
-    end
+    render 'answers/mark' if current_user.author_of?(answer.question) && answer.mark_as(upd_answ_params[:correct])
   end
 
   private

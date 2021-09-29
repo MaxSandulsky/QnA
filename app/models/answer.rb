@@ -5,20 +5,18 @@ class Answer < ApplicationRecord
   validates :body, :question, presence: true
   validate :correct_answers
 
-    def correct?
-      correct
-    end
+  def correct?
+    correct
+  end
 
   def correct_answers
-    if question && question.correct_answer.present? && self.correct? && question.correct_answer.id != self.id
-        errors.add(:correct)
-    end
+    errors.add(:correct) if question && question.correct_answer.present? && correct? && question.correct_answer.id != id
   end
 
   def mark_as(correct)
     ActiveRecord::Base.transaction do
       question.answers.each { |answer| answer.update(correct: false) }
-      self.update!(correct: correct)
+      update!(correct: correct)
     end
   end
 end

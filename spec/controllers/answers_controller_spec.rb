@@ -45,7 +45,7 @@ RSpec.describe AnswersController, type: :controller do
       let(:answer_params) { { id: own_answer, answer: { body: 'edited answer' } } }
 
       it 'should change answer attributes' do
-        expect { patch_update }.to change{ own_answer.reload.body }.to 'edited answer'
+        expect { patch_update }.to change { own_answer.reload.body }.to 'edited answer'
       end
 
       it 'should render update view' do
@@ -59,7 +59,7 @@ RSpec.describe AnswersController, type: :controller do
       let(:answer_params) { { id: own_answer, answer: { body: '' } } }
 
       it 'shouldn`t change answer attributes' do
-        expect { patch_update }.to_not change{ own_answer.reload.body }
+        expect { patch_update }.to_not change { own_answer.reload.body }
       end
 
       it 'should render update view' do
@@ -73,7 +73,7 @@ RSpec.describe AnswersController, type: :controller do
       let(:answer_params) { { id: answer, answer: { body: 'edited answer' } } }
 
       it 'should not edit answer' do
-        expect { patch_update }.to_not change{ answer.reload.body }
+        expect { patch_update }.to_not change { answer.reload.body }
       end
     end
   end

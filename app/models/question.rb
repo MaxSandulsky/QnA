@@ -6,7 +6,7 @@ class Question < ApplicationRecord
   validates :body, :title, presence: true
 
   def sort_answers
-    answers.order( correct: :desc )
+    answers.order(correct: :desc)
   end
 
   def correct_answer

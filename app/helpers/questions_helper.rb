@@ -4,6 +4,6 @@ module QuestionsHelper
   end
 
   def link_to_edit_question(question)
-    link_to t('.edit'), question, class: "button-question-edit" if current_user&.author_of?(question)
+    link_to t('.edit'), question, class: 'button-question-edit' if current_user&.author_of?(question)
   end
 end

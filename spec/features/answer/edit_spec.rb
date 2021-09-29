@@ -1,9 +1,8 @@
-feature 'User can edit his answer', %q{
+feature 'User can edit his answer', "
   In order to correct mistakes
   As an author of answer
   I'd like to be able to edit my answer
-} do
-
+" do
   given(:question) { create(:question) }
   given(:user) { create(:user) }
   given!(:own_answer) { create(:answer, question: question, author: user) }
@@ -23,7 +22,7 @@ feature 'User can edit his answer', %q{
 
     scenario 'edits his answer with valid attributes' do
       within(".answer-#{own_answer.id}") do
-        click_on "Изменить"
+        click_on 'Изменить'
         fill_in 'Изменить ответ', with: 'edited answer'
         click_on 'Save'
 
@@ -37,7 +36,7 @@ feature 'User can edit his answer', %q{
 
     scenario 'edits his answer with errors' do
       within(".answer-#{own_answer.id}") do
-        click_on "Изменить"
+        click_on 'Изменить'
         fill_in 'Изменить ответ', with: ''
         click_on 'Save'
 
@@ -53,5 +52,4 @@ feature 'User can edit his answer', %q{
       end
     end
   end
-
 end
