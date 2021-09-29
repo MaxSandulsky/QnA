@@ -4,7 +4,7 @@ export const question_InlineForm_with_target = (element_class, trigger_class, ta
     const trigger = document.querySelector(trigger_class)
 
     if (trigger) {
-        trigger.addEventListener('click', (event) => {
+        trigger.addEventListener('click', event => {
             if (event.target.classList.contains(target_class.substring(1))) {
                 event.preventDefault()
 

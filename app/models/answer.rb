@@ -14,4 +14,11 @@ class Answer < ApplicationRecord
         errors.add(:correct)
     end
   end
+
+  def mark_as(correct)
+    ActiveRecord::Base.transaction do
+      question.answers.each { |answer| answer.update(correct: false) }
+      self.update!(correct: correct)
+    end
+  end
 end

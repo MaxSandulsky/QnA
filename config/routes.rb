@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :questions, only: %i[index show new create update destroy] do
     resources :answers, shallow: true, only: %i[create update destroy] do
+      patch :mark, on: :member
     end
   end
 end

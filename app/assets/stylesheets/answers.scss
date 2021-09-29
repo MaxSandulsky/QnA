@@ -1,12 +1,12 @@
 .answers {
 }
 
-.answer-mark {
+.check {
+  color: #999999;
   height: 35px;
   width: 100%;
-  color: #999999;
 }
 
-.answer-mark.correct {
+.check.correct {
   color: forestgreen;
 }

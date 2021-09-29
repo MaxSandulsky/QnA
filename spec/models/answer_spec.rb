@@ -24,4 +24,28 @@ RSpec.describe Answer, type: :model do
       expect(answer.errors[:correct]).to include('Лучший ответ может быть только один')
     end
   end
+
+  describe '#mark_as' do
+    let(:question) { create(:question_with_answers) }
+
+    before do
+      question.answers.first.mark_as(true)
+    end
+
+    it 'should mark answer as correct' do
+      expect(question.answers.first.correct).to be_truthy
+    end
+
+    it 'should mark another answer as correct' do
+      question.answers.last.mark_as(true)
+
+      expect(question.answers.select(&:correct).count).to eq(1)
+    end
+
+    it 'should mark answer as false' do
+      question.answers.last.mark_as(false)
+
+      expect(question.answers.select(&:correct).count).to eq(0)
+    end
+  end
 end

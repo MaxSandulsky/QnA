@@ -41,46 +41,40 @@ RSpec.describe AnswersController, type: :controller do
   describe 'PATCH #update' do
     let(:patch_update) { patch :update, params: answer_params, format: :js }
 
-    context 'main attributes' do
-      context 'with valid attributes' do
-        let(:answer_params) { { id: own_answer, answer: { body: 'edited answer' } } }
+    context 'with valid attributes' do
+      let(:answer_params) { { id: own_answer, answer: { body: 'edited answer' } } }
 
-        it 'should change answer attributes' do
-          expect { patch_update }.to change{ own_answer.reload.body }.to 'edited answer'
-        end
-
-        it 'should render update view' do
-          patch_update
-
-          expect(response).to render_template :update
-        end
+      it 'should change answer attributes' do
+        expect { patch_update }.to change{ own_answer.reload.body }.to 'edited answer'
       end
 
-      context 'with invalid attributes' do
-        let(:answer_params) { { id: own_answer, answer: { body: '' } } }
+      it 'should render update view' do
+        patch_update
 
-        it 'shouldn`t change answer attributes' do
-          expect { patch_update }.to_not change{ own_answer.reload.body }
-        end
-
-        it 'should render update view' do
-          patch_update
-
-          expect(response).to render_template :update
-        end
-      end
-
-      context 'unfamiliar answer' do
-        let(:answer_params) { { id: answer, answer: { body: 'edited answer' } } }
-
-        it 'should not edit answer' do
-          expect { patch_update }.to_not change{ answer.reload.body }
-        end
+        expect(response).to render_template :update
       end
     end
 
-    context 'attribute :correct' do
+    context 'with invalid attributes' do
+      let(:answer_params) { { id: own_answer, answer: { body: '' } } }
 
+      it 'shouldn`t change answer attributes' do
+        expect { patch_update }.to_not change{ own_answer.reload.body }
+      end
+
+      it 'should render update view' do
+        patch_update
+
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'unfamiliar answer' do
+      let(:answer_params) { { id: answer, answer: { body: 'edited answer' } } }
+
+      it 'should not edit answer' do
+        expect { patch_update }.to_not change{ answer.reload.body }
+      end
     end
   end
 

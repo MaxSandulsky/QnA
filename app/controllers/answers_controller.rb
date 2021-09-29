@@ -10,13 +10,14 @@ class AnswersController < ApplicationController
   end
 
   def update
-    if current_user.author_of?(answer.question) && !answer_params[:correct].nil?
-      answer.question.answers.each { |answer| answer.update(correct: false) }
-      answer.update(answer_params)
-      render 'answers/update'
-    elsif current_user.author_of?(answer)
-      answer.update(answer_params)
-      render 'answers/update'
+    if current_user.author_of?(answer)
+      render 'answers/update' if answer.update(upd_answ_params)
+    end
+  end
+
+  def mark
+    if current_user.author_of?(answer.question)
+      render 'answers/mark' if answer.mark_as(upd_answ_params[:correct])
     end
   end
 
@@ -28,6 +29,10 @@ class AnswersController < ApplicationController
 
   def question
     @question ||= Question.find(params[:question_id])
+  end
+
+  def upd_answ_params
+    params.require(:answer).permit(:body, :correct)
   end
 
   def answer_params

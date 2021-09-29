@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     if user_signed_in?
       super
     else
-      redirect_to root_path, :notice => 'You need to login first!'
+      redirect_to root_path, notice: 'You need to login first!'
     end
   end
 end

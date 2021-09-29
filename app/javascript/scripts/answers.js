@@ -4,7 +4,7 @@ export const answer_InlineForm = (element_class, trigger_class) => {
     const trigger = document.querySelector(trigger_class)
 
     if (trigger) {
-        trigger.addEventListener('click', (event) => {
+        trigger.addEventListener('click', event => {
             event.preventDefault()
 
             const element = document.querySelector(element_class)
@@ -25,7 +25,7 @@ export const answer_InlineForm_with_target = (element_class, trigger_class, targ
     const trigger = document.querySelector(trigger_class)
 
     if (trigger) {
-        trigger.addEventListener('click', (event) => {
+        trigger.addEventListener('click', event => {
             if (event.target.classList.contains((target_class + event.target.dataset.answerId ).substring(1))) {
                 event.preventDefault()
                 const element = document.querySelector(element_class + event.target.dataset.answerId)

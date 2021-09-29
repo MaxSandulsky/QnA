@@ -8,10 +8,10 @@ module AnswersHelper
   end
 
   def link_to_false_mark(answer)
-    link_to (heroicon "check", options: { class: "answer-mark correct" }), answer_path(answer, answer: { correct: false }), method: :patch, remote: true
+    link_to (heroicon "check", options: { class: "check correct" }), mark_answer_path(answer, answer: { correct: false }), class: "answer-mark", method: :patch, remote: true
   end
 
   def link_to_true_mark(answer)
-    link_to (heroicon "check", options: { class: "answer-mark" }), answer_path(answer, answer: { correct: true }), method: :patch, remote: true
+    link_to (heroicon "check", options: { class: "check" }), mark_answer_path(answer, answer: { correct: true }), class: "answer-mark", method: :patch, remote: true
   end
 end
