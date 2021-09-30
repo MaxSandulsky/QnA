@@ -14,6 +14,9 @@ ru:
       sign_in: 'Войти'
 
   questions:
+    complete_question:
+      edit: "Изменить вопрос"
+      delete: "Удалить вопрос"
     destroy:
       success: 'Вопрос был удален'
       ownership_violation: 'Вопрос вам не принадлежит'
@@ -21,13 +24,32 @@ ru:
       success: 'Ваш вопрос успешно создан!'
     question:
       answer_count: 'количество ответов'
+    update:
+      edit_success: "Вопрос успешно изменён"
+    form:
+      save: "Сохранить"
+      title_field: "Заголовок"
+      body_field: "Описание"
+    new:
+      question_new: 'Задать новый вопрос'
 
   answers:
+    answer:
+      edit: 'Изменить'
+    form_new:
+      body_field: 'Новый ответ'
+    form_edit:
+      body_field: 'Изменить ответ'
     create:
       success: 'Ваш ответ успешно сохранен!'
+      create_success: "Ответ успешно сохранён"
     destroy:
       success: 'Ответ был удален'
       ownership_violation: 'Вопрос вам не принадлежит'
+      delete_success: "Ответ удалён"
+    update:
+      edit_success: "Ответ сохранён"
+
   activerecord:
     errors:
       models:
@@ -38,10 +60,14 @@ ru:
         question:
           attributes:
             body:
-              blank: 'Тело вопроса не может быть пустым'
+              blank: 'Описание вопроса не может быть пустым'
             title:
               blank: 'Заголовок вопроса не может быть пустым'
         answer:
           attributes:
             body:
               blank: 'Тело ответа не может быть пустым!'
+            author:
+              required: 'You need to login first!'
+            correct:
+              invalid: 'Лучший ответ может быть только один'

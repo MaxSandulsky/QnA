@@ -11,7 +11,7 @@ feature 'User can see question and related answers', "
     visit question_path(question)
 
     expect(page).to have_content('Some question with answers')
-    expect(page).to have_content('Some desctription')
+    expect(page).to have_content('Some description')
     expect(page).to have_content('Some answer', minimum: 2)
   end
 
@@ -19,7 +19,7 @@ feature 'User can see question and related answers', "
     visit question_path(question)
 
     expect(page).to have_content('Some question with answers')
-    expect(page).to have_content('Some desctription')
+    expect(page).to have_content('Some description')
     expect(page).to have_content('Some answer', minimum: 2)
   end
 end

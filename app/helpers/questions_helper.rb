@@ -1,5 +1,9 @@
 module QuestionsHelper
-  def link_to_delete(subject)
-    link_to 'Удалить', subject, method: :delete if current_user&.author_of?(subject)
+  def link_to_delete_question(question)
+    link_to t('.delete'), question, method: :delete if current_user&.author_of?(question)
+  end
+
+  def link_to_edit_question(question)
+    link_to t('.edit'), question, class: 'button-question-edit' if current_user&.author_of?(question)
   end
 end

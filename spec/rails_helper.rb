@@ -79,3 +79,4 @@ Capybara.register_driver :chrome do |app|
 end
 
 Capybara.javascript_driver = :chrome
+RSpec::Matchers.define_negated_matcher :not_change, :change

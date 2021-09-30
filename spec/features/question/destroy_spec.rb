@@ -14,7 +14,7 @@ feature 'User can delete own questions', "
 
       expect(page).to have_content('Question to remove')
 
-      click_link('Удалить', href: question_path(own_question))
+      click_link('Удалить вопрос', href: question_path(own_question))
 
       expect(page).to have_content('Вопрос был удален')
       expect(page).not_to have_content('Question to remove')
@@ -23,7 +23,7 @@ feature 'User can delete own questions', "
     it 'tries to delete unfamiliar question' do
       visit question_path(question)
 
-      expect(page).not_to have_link('Удалить', href: question_path(question))
+      expect(page).not_to have_link('Удалить вопрос', href: question_path(question))
       expect(page).to have_content('Question should remain')
     end
   end
@@ -32,7 +32,7 @@ feature 'User can delete own questions', "
     it 'tries to delete question' do
       visit question_path(question)
 
-      expect(page).not_to have_link('Удалить', href: question_path(question))
+      expect(page).not_to have_link('Удалить вопрос', href: question_path(question))
       expect(page).to have_content('Question should remain')
     end
   end

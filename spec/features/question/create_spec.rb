@@ -14,16 +14,16 @@ feature 'User can create question', "
     end
 
     it 'tries to create question' do
-      fill_in 'Title', with: 'Test question title'
-      fill_in 'Body', with: 'Body for test question'
-      click_on 'Ask'
+      fill_in 'Заголовок', with: 'Test question title'
+      fill_in 'Описание', with: 'Body for test question'
+      click_on 'Сохранить'
 
       expect(page).to have_content 'Test question title'
       expect(page).to have_content 'Ваш вопрос успешно создан!'
     end
 
     it 'tries to create question with errors' do
-      click_on 'Ask'
+      click_on 'Сохранить'
 
       expect(page).to have_content 'Заголовок вопроса не может быть пустым'
     end
@@ -33,6 +33,6 @@ feature 'User can create question', "
     visit questions_path
     click_on 'Ask question'
 
-    expect(page).to have_content 'Forgot your password?'
+    expect(page).to have_content 'You need to login first!'
   end
 end

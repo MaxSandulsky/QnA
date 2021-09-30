@@ -4,4 +4,12 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
 
   validates :body, :title, presence: true
+
+  def sort_answers
+    answers.order(correct: :desc)
+  end
+
+  def correct_answer
+    answers.find_by(correct: true)
+  end
 end
