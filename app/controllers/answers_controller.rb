@@ -2,7 +2,7 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @answer = question.answers.create(answer_params)
+    @answer = question.answers.create(create_params)
   end
 
   def destroy
@@ -10,11 +10,11 @@ class AnswersController < ApplicationController
   end
 
   def update
-    render 'answers/update' if current_user.author_of?(answer) && answer.update(upd_answ_params)
+    render 'answers/update' if current_user.author_of?(answer) && answer.update(answer_params)
   end
 
   def mark
-    render 'answers/mark' if current_user.author_of?(answer.question) && answer.mark_as(upd_answ_params[:correct])
+    render 'answers/mark' if current_user.author_of?(answer.question) && answer.mark_as(answer_params[:correct])
   end
 
   private
@@ -27,11 +27,11 @@ class AnswersController < ApplicationController
     @question ||= Question.find(params[:question_id])
   end
 
-  def upd_answ_params
-    params.require(:answer).permit(:body, :correct)
+  def create_params
+    answer_params.merge(author: current_user)
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :correct).merge(author: current_user)
+    params.require(:answer).permit(:body, :correct)
   end
 end
