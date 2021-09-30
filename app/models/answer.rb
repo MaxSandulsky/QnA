@@ -5,12 +5,8 @@ class Answer < ApplicationRecord
   validates :body, :question, presence: true
   validate :correct_answers
 
-  def correct?
-    correct
-  end
-
   def correct_answers
-    errors.add(:correct) if question && question.correct_answer.present? && correct? && question.correct_answer.id != id
+    errors.add(:correct) if question.correct_answer.present? && question.correct_answer != self
   end
 
   def mark_as(correct)
