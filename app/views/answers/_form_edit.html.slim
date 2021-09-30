@@ -1,4 +1,6 @@
 = form_with model: answer, class: "form-answer-#{answer.id} hide", local: false do |form|
   p= form.label :body, t('.body_field')
   p= form.text_area :body
-  p= form.submit 'Save'
+  p= form.label :files, t('.file_field')
+  p= form.file_field :files, multiple: true
+  p= form.submit t('.save')

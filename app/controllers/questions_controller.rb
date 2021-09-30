@@ -32,17 +32,23 @@ class QuestionsController < ApplicationController
 
   def update
     question.update(question_params)
+  rescue ActiveRecord::RecordNotFound => e
+    question.update(question_params.reject { |param| param == 'files' })
+  end
+
+  def remove_attachment
+    question.files.find(params[:attachment_id]).purge
   end
 
   private
 
   def question
-    @question ||= params[:id] ? Question.find(params[:id]) : Question.new
+    @question ||= params[:id] ? Question.with_attached_files.find(params[:id]) : Question.new
   end
 
   helper_method :question
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, files: [])
   end
 end

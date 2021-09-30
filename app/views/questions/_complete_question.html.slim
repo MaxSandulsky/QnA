@@ -5,3 +5,7 @@ p= link_to_edit_question(question)
 .question-errors
   = render 'shared/errors', resource: question
 div class="form-question-edit hide" = render "questions/form", question: question
+
+-if question.files.attached?
+  -question.files.each do |file|
+    p= link_to file.filename.to_s, url_for(file)

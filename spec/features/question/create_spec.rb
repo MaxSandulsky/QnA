@@ -22,6 +22,17 @@ feature 'User can create question', "
       expect(page).to have_content 'Ваш вопрос успешно создан!'
     end
 
+    it 'tries to create question with file' do
+      fill_in 'Заголовок', with: 'Test question title'
+      fill_in 'Описание', with: 'Body for test question'
+
+      attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      click_on 'Сохранить'
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
+    end
+
     it 'tries to create question with errors' do
       click_on 'Сохранить'
 

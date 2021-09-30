@@ -30,6 +30,7 @@ ru:
       save: "Сохранить"
       title_field: "Заголовок"
       body_field: "Описание"
+      delete: "Удалить файл"
     new:
       question_new: 'Задать новый вопрос'
 
@@ -38,8 +39,12 @@ ru:
       edit: 'Изменить'
     form_new:
       body_field: 'Новый ответ'
+      file_field: 'Прикрепить файлы'
+      save: 'Сохранить'
     form_edit:
       body_field: 'Изменить ответ'
+      file_field: 'Прикрепить файлы'
+      save: 'Сохранить'
     create:
       success: 'Ваш ответ успешно сохранен!'
       create_success: "Ответ успешно сохранён"

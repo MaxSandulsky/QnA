@@ -24,7 +24,7 @@ feature 'User can edit his answer', "
       within(".answer-#{own_answer.id}") do
         click_on 'Изменить'
         fill_in 'Изменить ответ', with: 'edited answer'
-        click_on 'Save'
+        click_on 'Сохранить'
 
         expect(page).to_not have_content own_answer.body
         expect(page).to have_content 'edited answer'
@@ -34,11 +34,20 @@ feature 'User can edit his answer', "
       expect(page).to have_content 'Ответ сохранён'
     end
 
+    scenario 'add files while editing answer' do
+      click_on 'Изменить'
+      attach_file 'Прикрепить файлы', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      click_on 'Сохранить'
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
+    end
+
     scenario 'edits his answer with errors' do
       within(".answer-#{own_answer.id}") do
         click_on 'Изменить'
         fill_in 'Изменить ответ', with: ''
-        click_on 'Save'
+        click_on 'Сохранить'
 
         expect(page).to have_content own_answer.body
         expect(page).to have_content 'Тело ответа не может быть пустым!'

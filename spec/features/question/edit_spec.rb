@@ -14,6 +14,8 @@ feature 'User can edit his question', "
 
   describe 'Authenticated user', js: true do
     background do
+      question.files.attach(io: File.open("#{Rails.root}/config/storage.yml"), filename: 'storage.yml')
+
       login user
       visit question_path(question)
     end
@@ -29,6 +31,23 @@ feature 'User can edit his question', "
       expect(page).to have_content 'edited description'
       expect(page).to have_content 'edited title'
       expect(page).to have_content 'Вопрос успешно изменён'
+    end
+
+    scenario 'add files while editing question' do
+      click_on 'Изменить вопрос'
+      attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      click_on 'Сохранить'
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
+    end
+
+    scenario 'delete files while editing question' do
+      click_on 'Изменить вопрос'
+      click_on(class: "file-delete-#{question.files.first.id}")
+      click_on 'Сохранить'
+
+      expect(page).to_not have_link 'storage.yml'
     end
 
     scenario 'edits his question with errors' do
