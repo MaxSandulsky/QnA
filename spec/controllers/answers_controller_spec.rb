@@ -103,4 +103,22 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #remove_attachment' do
+    it 'should remove file from own_answer' do
+      own_answer.files.attach(io: File.open("#{Rails.root}/config/storage.yml"), filename: 'storage.yml')
+
+      expect {
+        patch :remove_attachment, params: { id: own_answer, attachment_id: own_answer.files.first.id }, format: :js
+      }.to change(own_answer.files, :count).by(-1)
+    end
+
+    it 'should not remove unfamiliar question files' do
+      answer.files.attach(io: File.open("#{Rails.root}/config/storage.yml"), filename: 'storage.yml')
+
+      expect {
+        patch :remove_attachment, params: { id: answer, attachment_id: answer.files.first.id }, format: :js
+      }.to not_change(answer.files, :count)
+    end
+  end
 end

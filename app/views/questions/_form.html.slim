@@ -9,6 +9,6 @@ p= form_with model: question, local: false do |form|
     -if question.files.attached?
       -question.files.each do |file|
         =form.hidden_field :files, multiple: true, value: file.signed_id
-        p= file.filename.to_s
-        .inline= link_to_delete_attachment(file)
+        .inline= file.filename.to_s
+        .inline.tab= link_to_delete_question_attachment(file)
     p.tab= form.submit "#{ t('.save') }", class: "questiob-button"

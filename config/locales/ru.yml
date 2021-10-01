@@ -44,6 +44,7 @@ ru:
     form_edit:
       body_field: 'Изменить ответ'
       file_field: 'Прикрепить файлы'
+      delete: 'Удалить файл'
       save: 'Сохранить'
     create:
       success: 'Ваш ответ успешно сохранен!'

@@ -3,4 +3,9 @@
   p= form.text_area :body
   p= form.label :files, t('.file_field')
   p= form.file_field :files, multiple: true
+  -if answer.files.attached?
+    -answer.files.each do |file|
+      =form.hidden_field :files, multiple: true, value: file.signed_id
+      .inline= file.filename.to_s
+      .inline.tab= link_to_delete_answer_attachment(answer, file)
   p= form.submit t('.save')

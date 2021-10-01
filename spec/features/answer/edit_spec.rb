@@ -16,6 +16,7 @@ feature 'User can edit his answer', "
 
   describe 'Authenticated user', js: true do
     background do
+      own_answer.files.attach(io: File.open("#{Rails.root}/config/storage.yml"), filename: 'storage.yml')
       login user
       visit question_path(question)
     end
@@ -41,6 +42,14 @@ feature 'User can edit his answer', "
 
       expect(page).to have_link 'rails_helper.rb'
       expect(page).to have_link 'spec_helper.rb'
+    end
+
+    scenario 'delete files while editing answer' do
+      click_on 'Изменить'
+      click_on(class: "file-delete-#{own_answer.files.first.id}")
+      click_on 'Сохранить'
+
+      expect(page).to_not have_link 'storage.yml'
     end
 
     scenario 'edits his answer with errors' do

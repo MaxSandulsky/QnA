@@ -37,7 +37,6 @@ feature 'User can create answer', "
 
     it 'tries to create answer with file' do
       fill_in 'Новый ответ', with: 'Answer body'
-
       attach_file 'Прикрепить файлы', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
       click_on 'Сохранить'
 

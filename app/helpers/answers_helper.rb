@@ -22,4 +22,8 @@ module AnswersHelper
     link_to (heroicon 'check', options: { class: 'check' }), mark_answer_path(answer, answer: { correct: true }),
             class: 'answer-mark', method: :patch, remote: true
   end
+
+  def link_to_delete_answer_attachment(answer, file)
+    link_to t('.delete'), remove_attachment_answer_path(answer, attachment_id: file.id), class: "file-delete-#{file.id}", method: :patch, remote: true
+  end
 end
