@@ -11,8 +11,6 @@ class AnswersController < ApplicationController
 
   def update
     render 'answers/update' if current_user.author_of?(answer) && answer.update(answer_params)
-  rescue ActiveRecord::RecordNotFound => e
-    answer.update(answer_params.reject { |param| param == 'files' })
   end
 
   def mark
@@ -21,6 +19,7 @@ class AnswersController < ApplicationController
 
   def remove_attachment
     answer.files.find(params[:attachment_id]).purge if current_user.author_of?(answer)
+    render 'answers/remove_attachment'
   end
 
   private

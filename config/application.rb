@@ -11,6 +11,7 @@ module QnA
     config.load_defaults 6.1
     config.time_zone = 'Moscow'
     config.i18n.default_locale = :ru
+    config.active_storage.replace_on_assign_to_many = false
 
     config.generators do |g|
       g.test_framework :rspec,
