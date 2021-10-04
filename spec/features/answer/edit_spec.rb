@@ -39,6 +39,7 @@ feature 'User can edit his answer', "
       click_on 'Изменить'
       attach_file 'Прикрепить файлы', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
       click_on 'Сохранить'
+      sleep 3
 
       expect(page).to have_link 'rails_helper.rb'
       expect(page).to have_link 'spec_helper.rb'
@@ -47,8 +48,9 @@ feature 'User can edit his answer', "
     scenario 'delete files while editing answer' do
       click_on 'Изменить'
       click_on(class: "file-delete-#{own_answer.files.first.id}")
+      sleep 3
       click_on 'Сохранить'
-
+      
       expect(page).to_not have_link 'storage.yml'
     end
 

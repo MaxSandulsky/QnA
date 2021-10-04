@@ -31,6 +31,8 @@ ru:
       title_field: "Заголовок"
       body_field: "Описание"
       delete: "Удалить файл"
+      link_name: "Текст ссылки"
+      url_path: 'Адрес ссылки'
     new:
       question_new: 'Задать новый вопрос'
 
@@ -41,6 +43,8 @@ ru:
       body_field: 'Новый ответ'
       file_field: 'Прикрепить файлы'
       save: 'Сохранить'
+      link_name: 'Текст ссылки'
+      url_path: 'Адрес ссылки'
     form_edit:
       body_field: 'Изменить ответ'
       file_field: 'Прикрепить файлы'

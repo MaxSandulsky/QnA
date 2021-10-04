@@ -1,6 +1,11 @@
-= form_with model: [question, answer], class: 'form-answer-new hide', local: false do |form|
+= form_with model: [question, @answer], class: 'form-answer-new hide', local: false do |form|
   p= form.label :body, t('.body_field')
   p= form.text_area :body
   p= form.label :files, t('.file_field')
   p= form.file_field :files, multiple: true
+  p= form.fields_for :links do |l|
+    p= l.label :name, t('.link_name')
+    p= l.text_field :name
+    p= l.label :url, t('.url_path')
+    p= l.text_field :url
   p= form.submit t('.save')

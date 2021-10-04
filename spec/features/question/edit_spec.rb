@@ -36,6 +36,7 @@ feature 'User can edit his question', "
     scenario 'add files while editing question' do
       click_on 'Изменить вопрос'
       attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      sleep 3
       click_on 'Сохранить'
 
       expect(page).to have_link 'rails_helper.rb'
@@ -45,6 +46,7 @@ feature 'User can edit his question', "
     scenario 'delete files while editing question' do
       click_on 'Изменить вопрос'
       click_on(class: "file-delete-#{question.files.first.id}")
+      sleep 3
       click_on 'Сохранить'
 
       expect(page).to_not have_link 'storage.yml'

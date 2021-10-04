@@ -31,7 +31,7 @@ gem 'bootstrap'
 gem 'devise'
 gem 'heroicon'
 gem 'slim-rails'
-
+gem "cocoon"
 gem 'aws-sdk-s3'
 
 group :development, :test do

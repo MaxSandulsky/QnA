@@ -22,8 +22,16 @@ RSpec.describe QuestionsController, type: :controller do
 
     before { get :show, params: { id: question } }
 
+    it 'assigns new answer for question' do
+      expect(assigns(:answer)).to be_a_new(Answer)
+    end
+
+    it 'assigns new link for answer' do
+      expect(assigns(:answer).links.first).to be_a_new(Link)
+    end
+
     it 'populates all answers related to question' do
-      expect(assigns(:answers)).to match_array(question.answers)
+      expect(assigns(:answers).reject(&:new_record?)).to match_array(question.answers.reload)
     end
 
     it 'render show view' do
@@ -33,6 +41,10 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'GET #new' do
     before { get :new }
+
+    it 'assigns a new link to @link' do
+      expect(assigns(:question).links.first).to be_a_new(Link)
+    end
 
     it 'render new view' do
       expect(response).to render_template :new
