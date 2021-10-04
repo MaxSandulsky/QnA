@@ -8,6 +8,7 @@ module QuestionsHelper
   end
 
   def link_to_delete_question_attachment(file)
-    link_to t('.delete'), remove_attachment_question_path(attachment_id: file.id), class: "file-delete-#{file.id}", method: :patch, remote: true
+    link_to t('.delete'), remove_attachment_question_path(attachment_id: file.id), class: "file-delete-#{file.id}",
+                                                                                   method: :patch, remote: true
   end
 end

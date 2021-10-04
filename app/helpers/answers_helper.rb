@@ -24,6 +24,7 @@ module AnswersHelper
   end
 
   def link_to_delete_answer_attachment(answer, file)
-    link_to t('.delete'), remove_attachment_answer_path(answer, attachment_id: file.id), class: "file-delete-#{file.id}", method: :patch, remote: true
+    link_to t('.delete'), remove_attachment_answer_path(answer, attachment_id: file.id),
+            class: "file-delete-#{file.id}", method: :patch, remote: true
   end
 end
