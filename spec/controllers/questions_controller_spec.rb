@@ -145,4 +145,25 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #remove_attachment' do
+    let!(:own_question) { create(:question, author: user) }
+    let!(:question) { create(:question) }
+
+    it 'should remove file from own_question' do
+      own_question.files.attach(io: File.open("#{Rails.root}/config/storage.yml"), filename: 'storage.yml')
+
+      expect {
+        patch :remove_attachment, params: { id: own_question, attachment_id: own_question.files.first.id }, format: :js
+             }.to change(own_question.files, :count).by(-1)
+    end
+
+    it 'should not remove unfamiliar question files' do
+      question.files.attach(io: File.open("#{Rails.root}/config/storage.yml"), filename: 'storage.yml')
+
+      expect {
+        patch :remove_attachment, params: { id: question, attachment_id: question.files.first.id }, format: :js
+      }.to not_change(question.files, :count)
+    end
+  end
 end

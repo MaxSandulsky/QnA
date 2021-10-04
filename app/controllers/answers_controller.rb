@@ -17,6 +17,11 @@ class AnswersController < ApplicationController
     render 'answers/mark' if current_user.author_of?(answer.question) && answer.mark_as(answer_params[:correct])
   end
 
+  def remove_attachment
+    answer.files.find(params[:attachment_id]).purge if current_user.author_of?(answer)
+    render 'answers/remove_attachment'
+  end
+
   private
 
   def answer
@@ -32,6 +37,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :correct)
+    params.require(:answer).permit(:body, :correct, files: [])
   end
 end
