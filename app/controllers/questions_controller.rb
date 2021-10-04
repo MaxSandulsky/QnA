@@ -32,12 +32,11 @@ class QuestionsController < ApplicationController
 
   def update
     question.update(question_params)
-  rescue ActiveRecord::RecordNotFound => e
-    question.update(question_params.reject { |param| param == 'files' })
   end
 
   def remove_attachment
     question.files.find(params[:attachment_id]).purge if current_user.author_of?(question)
+    render 'questions/remove_attachment'
   end
 
   private
