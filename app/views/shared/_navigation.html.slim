@@ -3,3 +3,4 @@
     p= sign_link
     p= link_to 'QnA', root_path
   p= link_to t('.rewards'), rewards_path
+= GistParseService.new('https://api.github.com/gists/659290bad6df910b28d514bed4cfd22a').content
