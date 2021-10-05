@@ -14,10 +14,11 @@ feature 'User can add link to answer', "
 
     visit question_path(question)
     click_on 'I have answer'
+
+    fill_in 'Новый ответ', with: 'Answer body'
   end
 
-  scenario 'User can add a link when giving an answer', js: true do
-    fill_in 'Новый ответ', with: 'Answer body'
+  scenario 'User can add link when giving an answer', js: true do
     click_on 'Добавить ссылку'
 
     fields = page.all(class: 'nested-fields')
@@ -34,6 +35,16 @@ feature 'User can add link to answer', "
       expect(page).to have_link urls_names[0], href: gist_urls[0]
       expect(page).to have_link urls_names[1], href: gist_urls[1]
     end
+  end
+
+  scenario 'User cannt add invalid link when giving an answer', js: true do
+    fill_in 'Текст ссылки', with: urls_names[0]
+    fill_in 'Адрес ссылки', with: 'gist_urls[i]'
+
+    click_on 'Сохранить'
+
+    expect(page).to_not have_content urls_names[0]
+    expect(page).to have_content 'Неправильный формат ссылки'
   end
 
 end

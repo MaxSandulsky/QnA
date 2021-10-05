@@ -69,6 +69,10 @@ ru:
   activerecord:
     errors:
       models:
+        link:
+          attributes:
+            url:
+              invalid: 'Неправильный формат ссылки'
         user:
           attributes:
             email:
