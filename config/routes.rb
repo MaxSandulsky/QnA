@@ -11,4 +11,6 @@ Rails.application.routes.draw do
       patch :remove_attachment, on: :member
     end
   end
+
+  resources :rewards, only: :index
 end

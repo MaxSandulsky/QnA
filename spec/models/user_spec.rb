@@ -15,4 +15,16 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_author_of(dif_question)
     end
   end
+
+  describe '#rewards' do
+    let(:user) { create(:user) }
+    let(:first_question) { create(:question_with_rewards) }
+    let(:second_question) { create(:question_with_rewards) }
+    let!(:first_answer) { create(:answer, question: first_question, correct: true, author: user) }
+    let!(:second_answer) { create(:answer, question: second_question, correct: true, author: user) }
+
+    it 'should have rewards' do
+      expect(user.rewards.count).to eq 2
+    end
+  end
 end

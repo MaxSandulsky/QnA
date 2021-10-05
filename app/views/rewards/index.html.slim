@@ -1,0 +1,6 @@
+.tab
+  -if !@rewards.empty?
+    = t('.your_rewards')
+    = render @rewards
+  -else
+    = t('.no_rewards')

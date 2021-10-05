@@ -8,4 +8,8 @@ class User < ApplicationRecord
   def author_of?(subject)
     subject.author_id == id
   end
+
+  def rewards
+    answers.select(&:correct?).map(&:question).map(&:reward)
+  end
 end

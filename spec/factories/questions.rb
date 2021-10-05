@@ -20,6 +20,14 @@ FactoryBot.define do
       end
     end
 
+    factory :question_with_rewards do
+      title { 'Some question with rewards' }
+
+      reward do
+        association(:reward)
+      end
+    end
+
     trait :invalid do
       title { nil }
       body { nil }
