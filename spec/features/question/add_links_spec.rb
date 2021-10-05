@@ -21,7 +21,7 @@ feature 'User can add link to question', "
     scenario 'can add proper link', js: true do
       click_on 'Добавить ссылку'
 
-      fields = page.all(class: 'nested-fields')
+      fields = page.all(class: 'links-fields')
       fields.each_with_index do |field, i|
         within(field) do
           fill_in 'Текст ссылки', with: urls_names[i]
@@ -57,7 +57,7 @@ feature 'User can add link to question', "
     scenario 'can add proper link', js: true do
       click_on 'Добавить ссылку'
 
-      fields = page.all(class: 'nested-fields')
+      fields = page.all(class: 'links-fields')
       fields.each_with_index do |field, i|
         within(field) do
           fill_in 'Текст ссылки', with: urls_names[i]
@@ -65,7 +65,7 @@ feature 'User can add link to question', "
         end
       end
       click_on 'Сохранить'
-      
+
       expect(page).to have_link urls_names[0], href: gist_urls[0]
       expect(page).to have_link urls_names[1], href: gist_urls[1]
     end

@@ -32,6 +32,7 @@ gem 'devise'
 gem 'heroicon'
 gem 'slim-rails'
 gem "cocoon"
+gem 'image_processing'
 gem 'aws-sdk-s3'
 
 group :development, :test do

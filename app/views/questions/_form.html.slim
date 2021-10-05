@@ -6,6 +6,7 @@ p= form_with model: question, local: false do |form|
     p= form.text_area :body
     p= form.label :files, t('.file_field')
     p= form.file_field :files, multiple: true
+
     -if question.files.attached?
       -question.reload.files.each do |file|
         p
@@ -17,4 +18,8 @@ p= form_with model: question, local: false do |form|
       = render 'link_fields', f: l
     .add_link
       = link_to_add_association t('.add_link'), form, :links
+
+    p= form.fields_for :reward do |r|
+      = render 'reward_fields', f: r
+
   p.tab= form.submit "#{ t('.save') }", class: "question-button"

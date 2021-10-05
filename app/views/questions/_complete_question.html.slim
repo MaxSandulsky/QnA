@@ -1,5 +1,11 @@
 h1= question.title
 h2= question.body
+
+-if question.reward
+  .reward
+    .tab=question.reward.name
+    p=image_tag question.reward.picture.variant(resize_to_limit: [100, 100])
+
 p= link_to_delete_question(question)
 p= link_to_edit_question(question)
 .question-errors
