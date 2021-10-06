@@ -19,7 +19,14 @@
       p= t('.links')
       ul
         -answer.links.each do |link|
-          li= link_to link.name, link.url
+          -if link.gist?
+            li
+              .inline
+                = link_to link.name, link.url
+              .tab.inline
+                = gist_from_link(link.url)
+          -else
+            li= link_to link.name, link.url
 div
   .inline
     = link_to_delete_answer(answer)

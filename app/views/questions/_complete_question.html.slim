@@ -1,11 +1,6 @@
 h1= question.title
 h2= question.body
 
--if question.reward
-  .reward
-    .tab=question.reward.name
-    p=image_tag question.reward.picture.variant(resize_to_limit: [100, 100])
-
 p= link_to_delete_question(question)
 p= link_to_edit_question(question)
 .question-errors
@@ -17,7 +12,14 @@ div class="form-question-edit hide" = render "questions/form", question: questio
     p= t('.links')
     ul
       -question.links.each do |link|
-        li= link_to link.name, link.url
+        -if link.gist?
+          li
+            .inline
+              = link_to link.name, link.url
+            .tab.inline
+              = gist_from_link(link.url)
+        -else
+          li= link_to link.name, link.url
 
 -if question.files.attached?
   -question.files.each do |file|

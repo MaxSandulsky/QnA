@@ -31,8 +31,8 @@ feature 'User can add link to question', "
 
       click_on 'Сохранить'
 
-      expect(page).to have_link urls_names[0], href: gist_urls[0]
-      expect(page).to have_link urls_names[1], href: gist_urls[1]
+      expect(page).to have_link urls_names[0]
+      expect(page).to have_link urls_names[1]
     end
 
     scenario 'cannt add invalid link', js: true do
@@ -66,8 +66,8 @@ feature 'User can add link to question', "
       end
       click_on 'Сохранить'
 
-      expect(page).to have_link urls_names[0], href: gist_urls[0]
-      expect(page).to have_link urls_names[1], href: gist_urls[1]
+      expect(page).to have_link urls_names[0]
+      expect(page).to have_link urls_names[1]
     end
 
     scenario 'cannt add invalid link', js: true do
@@ -78,6 +78,22 @@ feature 'User can add link to question', "
 
       expect(page).to_not have_content urls_names[0]
       expect(page).to have_content 'Неправильный формат ссылки'
+    end
+  end
+
+  describe 'links to gists shows contents' do
+    scenario 'User types gist url' do
+      login user
+      visit new_question_path
+
+      fill_in 'Заголовок', with: 'Test question title'
+      fill_in 'Описание', with: 'Body for test question'
+      fill_in 'Текст ссылки', with: urls_names[0]
+      fill_in 'Адрес ссылки', with: gist_urls[0]
+
+      click_on 'Сохранить'
+
+      expect(page).to have_content 'In Ruby, everything is ...'
     end
   end
 end
