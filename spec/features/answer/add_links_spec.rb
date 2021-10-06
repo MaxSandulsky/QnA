@@ -88,14 +88,14 @@ feature 'User can add link to answer', "
   describe 'links to gists shows contents', js: true do
     scenario 'User types gist url' do
       login user
-      byebug
+
       visit question_path(question)
       click_on 'I have answer'
-      byebug
+
       fill_in 'Новый ответ', with: 'Answer body'
       fill_in 'Текст ссылки', with: urls_names[0]
       fill_in 'Адрес ссылки', with: gist_urls[0]
-      byebug
+
       click_on 'Сохранить'
 
       expect(page).to have_content 'In Ruby, everything is ...'
