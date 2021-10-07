@@ -1,0 +1,6 @@
+div class="reward-#{reward.id}"
+  ul
+    li class="img"
+      = image_tag reward.picture.variant(resize_to_limit: [100, 100])
+    li= reward.name
+    li= reward.question.title

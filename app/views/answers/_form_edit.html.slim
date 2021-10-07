@@ -1,13 +1,17 @@
-= form_with model: answer.reload, class: "form-answer-#{answer.id} hide", local: false do |form|
+= form_with model: answer, class: "form-answer-#{answer.id} hide", local: false do |form|
   p= form.label :body, t('.body_field')
   p= form.text_area :body
   p= form.label :files, t('.file_field')
   p= form.file_field :files, multiple: true
   -if answer.files.attached?
-    -answer.files.each do |file|
+    -answer.reload.files.each do |file|
       p
         .inline= file.filename.to_s
         .inline.tab
           = link_to_delete_answer_attachment(answer, file)
           = form.hidden_field :files, multiple: true, value: file.signed_id
+  p= form.fields_for :links do |l|
+    = render 'link_fields', f: l
+  .add_link
+    = link_to_add_association t('.add_link'), form, :links
   p= form.submit t('.save')

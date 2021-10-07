@@ -8,6 +8,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "scripts/events"
+import "@oddcamp/cocoon-vanilla-js";
 
 Rails.start()
 Turbolinks.start()

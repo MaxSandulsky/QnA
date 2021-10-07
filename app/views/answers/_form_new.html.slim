@@ -1,6 +1,10 @@
-= form_with model: [question, answer], class: 'form-answer-new hide', local: false do |form|
+= form_with model: [question, @answer], class: 'form-answer-new hide', local: false do |form|
   p= form.label :body, t('.body_field')
   p= form.text_area :body
   p= form.label :files, t('.file_field')
   p= form.file_field :files, multiple: true
+  p= form.fields_for :links do |l|
+    = render 'link_fields', f: l
+  .add_link
+    = link_to_add_association t('.add_link'), form, :links
   p= form.submit t('.save')

@@ -14,6 +14,19 @@
     -if answer.files.attached?
       -answer.files.each do |file|
         p= link_to file.filename.to_s, url_for(file)
+  -unless answer.links.reject(&:new_record?).empty?
+    .links
+      p= t('.links')
+      ul
+        -answer.links.each do |link|
+          -if link.gist?
+            li
+              .inline
+                = link_to link.name, link.url
+              .tab.inline
+                = gist_from_link(link.url)
+          -else
+            li= link_to link.name, link.url
 div
   .inline
     = link_to_delete_answer(answer)

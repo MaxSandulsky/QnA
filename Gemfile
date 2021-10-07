@@ -31,8 +31,12 @@ gem 'bootstrap'
 gem 'devise'
 gem 'heroicon'
 gem 'slim-rails'
-
+gem "cocoon"
+gem 'image_processing'
 gem 'aws-sdk-s3'
+gem 'faraday'
+gem 'faraday_middleware'
+gem "octokit"
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

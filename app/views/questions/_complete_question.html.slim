@@ -1,10 +1,25 @@
 h1= question.title
 h2= question.body
+
 p= link_to_delete_question(question)
 p= link_to_edit_question(question)
 .question-errors
   = render 'shared/errors', resource: question
 div class="form-question-edit hide" = render "questions/form", question: question
+
+-unless question.links.empty?
+  .links
+    p= t('.links')
+    ul
+      -question.links.each do |link|
+        -if link.gist?
+          li
+            .inline
+              = link_to link.name, link.url
+            .tab.inline
+              = gist_from_link(link.url)
+        -else
+          li= link_to link.name, link.url
 
 -if question.files.attached?
   -question.files.each do |file|

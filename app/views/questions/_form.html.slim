@@ -1,4 +1,4 @@
-p= form_with model: question.reload, local: false do |form|
+p= form_with model: question, local: false do |form|
   .tab
     p= form.label :title, t('.title_field')
     p= form.text_field :title
@@ -6,10 +6,20 @@ p= form_with model: question.reload, local: false do |form|
     p= form.text_area :body
     p= form.label :files, t('.file_field')
     p= form.file_field :files, multiple: true
+
     -if question.files.attached?
-      -question.files.each do |file|
+      -question.reload.files.each do |file|
         p
           .inline= file.filename.to_s
           .inline.tab= link_to_delete_question_attachment(file)
           =form.hidden_field :files, multiple: true, value: file.signed_id
-    p.tab= form.submit "#{ t('.save') }", class: "questiob-button"
+
+    p= form.fields_for :links do |l|
+      = render 'link_fields', f: l
+    .add_link
+      = link_to_add_association t('.add_link'), form, :links
+
+    p= form.fields_for :reward do |r|
+      = render 'reward_fields', f: r
+
+  p.tab= form.submit "#{ t('.save') }", class: "question-button"
