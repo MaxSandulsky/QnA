@@ -42,3 +42,15 @@ export const answer_InlineForm_with_target = (element_class, trigger_class, targ
         handler.formHandler(handler)
     }
 }
+
+export const answer_form_ajax = (form_class, container_class) => {
+  const form = document.querySelector(form_class)
+  const container = document.querySelector(container_class)
+
+  form.addEventListener('ajax:success', event => {
+    let xhr = event.detail[0]
+    console.log(xhr);
+    container.insertAdjacentHTML('beforeend', "<div class='answer-" + xhr.id + "'>" +  + "</div>")
+
+  })
+}
