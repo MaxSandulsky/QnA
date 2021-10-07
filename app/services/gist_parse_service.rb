@@ -6,18 +6,15 @@ class GistParseService
   end
 
   def get_gist_content(url)
-    response = json_responce(url).get()
-    parse_json_to_string_by(response.body, 'content')
+    json = Octokit.gist(gist_id_from url)
+    parse_json_to_string_by(json, 'content')
   end
 
   def parse_json_to_string_by(json, key)
-    json["files"][json["files"].keys[0]]["content"]
+    json["files"].first[1]["content"]
   end
 
-  def json_responce(url)
-    Faraday.new(url: url) do |faraday|
-      faraday.adapter Faraday.default_adapter
-      faraday.response :json
-    end
+  def gist_id_from url
+    url.gsub(/\A.+\/{2}.+\/.+\//, '')
   end
 end

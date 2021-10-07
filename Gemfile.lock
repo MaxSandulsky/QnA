@@ -170,6 +170,9 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.12.4-x86_64-linux)
       racc (~> 1.4)
+    octokit (4.21.0)
+      faraday (>= 0.9)
+      sawyer (~> 0.8.0, >= 0.5.3)
     orm_adapter (0.5.0)
     pg (1.2.3)
     popper_js (2.9.3)
@@ -254,6 +257,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    sawyer (0.8.2)
+      addressable (>= 2.3.5)
+      faraday (> 0.8, < 2.0)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -325,6 +331,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   launchy
   listen (~> 3.3)
+  octokit
   pg (~> 1.1)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)

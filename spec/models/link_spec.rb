@@ -4,15 +4,6 @@ RSpec.describe Link, type: :model do
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_presence_of :url }
 
-  describe 'transform_if_gist' do
-    let(:link) { create(:link) }
-
-    it 'should be correct gist link' do
-      link.url = 'https://gist.github.com/MaxSandulsky/659290bad6df910b28d514bed4cfd22a'
-      link.transform_if_gist
-    end
-  end
-
   describe '#gist?' do
     let(:link) { create(:link) }
 
