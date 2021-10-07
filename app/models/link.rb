@@ -6,10 +6,10 @@ class Link < ApplicationRecord
   validate :proper_url
 
   def proper_url
-    errors.add(:url) if !URI.regexp.match? url
+    errors.add(:url) unless URI.regexp.match? url
   end
 
   def gist?
-    true if /gist.github.com/.match?(url) || /api.github.com\/gists/.match?(url)
+    true if /gist.github.com/.match?(url) || %r{api.github.com/gists}.match?(url)
   end
 end

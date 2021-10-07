@@ -26,17 +26,17 @@ gem 'jbuilder', '~> 2.7'
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
+gem 'aws-sdk-s3'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'bootstrap'
+gem 'cocoon'
 gem 'devise'
-gem 'heroicon'
-gem 'slim-rails'
-gem "cocoon"
-gem 'image_processing'
-gem 'aws-sdk-s3'
 gem 'faraday'
 gem 'faraday_middleware'
-gem "octokit"
+gem 'heroicon'
+gem 'image_processing'
+gem 'octokit'
+gem 'slim-rails'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

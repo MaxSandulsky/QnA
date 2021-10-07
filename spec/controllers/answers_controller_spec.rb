@@ -16,7 +16,7 @@ RSpec.describe AnswersController, type: :controller do
         expect { post_create }.to change(question.answers, :count).by(1)
       end
 
-      it 'should render create view' do
+      it 'renders create view' do
         post_create
 
         expect(response).to render_template :create
@@ -26,7 +26,7 @@ RSpec.describe AnswersController, type: :controller do
     context 'with invalid attributes' do
       let(:answer_params) { attributes_for(:answer, :invalid) }
 
-      it 'should render create view' do
+      it 'renders create view' do
         post_create
 
         expect(response).to render_template :create
@@ -44,11 +44,11 @@ RSpec.describe AnswersController, type: :controller do
     context 'with valid attributes' do
       let(:answer_params) { { id: own_answer, answer: { body: 'edited answer' } } }
 
-      it 'should change answer attributes' do
+      it 'changes answer attributes' do
         expect { patch_update }.to change { own_answer.reload.body }.to 'edited answer'
       end
 
-      it 'should render update view' do
+      it 'renders update view' do
         patch_update
 
         expect(response).to render_template :update
@@ -59,10 +59,10 @@ RSpec.describe AnswersController, type: :controller do
       let(:answer_params) { { id: own_answer, answer: { body: '' } } }
 
       it 'shouldn`t change answer attributes' do
-        expect { patch_update }.to_not change { own_answer.reload.body }
+        expect { patch_update }.not_to change { own_answer.reload.body }
       end
 
-      it 'should render update view' do
+      it 'renders update view' do
         patch_update
 
         expect(response).to render_template :update
@@ -72,8 +72,8 @@ RSpec.describe AnswersController, type: :controller do
     context 'unfamiliar answer' do
       let(:answer_params) { { id: answer, answer: { body: 'edited answer' } } }
 
-      it 'should not edit answer' do
-        expect { patch_update }.to_not change { answer.reload.body }
+      it 'does not edit answer' do
+        expect { patch_update }.not_to change { answer.reload.body }
       end
     end
   end
@@ -105,20 +105,20 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'PATCH #remove_attachment' do
-    it 'should remove file from own_answer' do
+    it 'removes file from own_answer' do
       own_answer.files.attach(io: File.open("#{Rails.root}/config/storage.yml"), filename: 'storage.yml')
 
-      expect {
+      expect do
         patch :remove_attachment, params: { id: own_answer, attachment_id: own_answer.files.first.id }, format: :js
-      }.to change(own_answer.files, :count).by(-1)
+      end.to change(own_answer.files, :count).by(-1)
     end
 
-    it 'should not remove unfamiliar question files' do
+    it 'does not remove unfamiliar question files' do
       answer.files.attach(io: File.open("#{Rails.root}/config/storage.yml"), filename: 'storage.yml')
 
-      expect {
+      expect do
         patch :remove_attachment, params: { id: answer, attachment_id: answer.files.first.id }, format: :js
-      }.to not_change(answer.files, :count)
+      end.to not_change(answer.files, :count)
     end
   end
 end

@@ -8,6 +8,6 @@ class Reward < ApplicationRecord
   validate :picture_format
 
   def picture_format
-    errors.add(:picture) if !/.(jpg|png)$/.match? picture.filename.to_s
+    errors.add(:picture) unless /.(jpg|png)$/.match? picture.filename.to_s
   end
 end
