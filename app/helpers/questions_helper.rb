@@ -13,7 +13,7 @@ module QuestionsHelper
   end
 
   def link_to_add_reward
-    link_to t('.add_reward'), '', class: "reward-link", remote: true
+    link_to t('.add_reward'), '', class: 'reward-link', remote: true
   end
 
   def gist_from_link(url)
