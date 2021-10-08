@@ -10,3 +10,23 @@
 .inline {
   display:inline-block;
 }
+
+.chevron {
+  color: #999999;
+  height: 35px;
+  width: 100%;
+  position: sticky;
+}
+
+.chevron.down {
+  position: relative;
+}
+
+.vote-sum {
+  display: flex;
+  justify-content: center
+}
+
+.chevron.selected {
+  color: #0040ff
+}

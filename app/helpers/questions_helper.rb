@@ -19,4 +19,16 @@ module QuestionsHelper
   def gist_from_link(url)
     GistParseService.new(url).content
   end
+
+  def link_to_upvote_question(question)
+    link_to (heroicon 'chevron-up', options: { class: 'chevron up' }),
+             upvote_question_path(question), class: "question-upvote",
+             method: :post, remote: true
+  end
+
+  def link_to_downvote_question(question)
+    link_to (heroicon 'chevron-down', options: { class: 'chevron down' }),
+             downvote_question_path(question), class: "question-downvote",
+             method: :post, remote: true
+  end
 end
