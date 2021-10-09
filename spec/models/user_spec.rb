@@ -27,4 +27,14 @@ RSpec.describe User, type: :model do
       expect(user.rewards.count).to eq 2
     end
   end
+
+  describe '#vote_for' do
+    let(:user) { create(:user) }
+    let(:answer) { create(:answer) }
+    let!(:vote) { create(:vote, user: user, voteable: answer) }
+
+    it "could have vote" do
+      expect(user.vote_for answer).to eq(vote)
+    end
+  end
 end

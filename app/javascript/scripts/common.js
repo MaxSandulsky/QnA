@@ -12,7 +12,6 @@ export const disable_default_behavior = (element_class) => {
 
 export const votes_by_ajaj_with_target = (trigger_class, updating_class, target_class, container_class) => {
     const trigger = document.querySelector(trigger_class)
-    const target = document.querySelectorAll(target_class)
 
     if (trigger) {
         trigger.addEventListener('ajax:success', event => {
@@ -30,13 +29,26 @@ export const votes_by_ajaj_with_target = (trigger_class, updating_class, target_
 }
 
 export const switch_promotion = (container, responseURL) => {
+    const chevron_up = container.querySelector('.chevron.up')
+    const chevron_down = container.querySelector('.chevron.down')
+
     if (responseURL.includes('upvote')) {
-      container.querySelector('.chevron.up').classList.add('selected')
-      container.querySelector('.chevron.down').classList.remove('selected')
+      if (chevron_up.classList.contains('selected')) {
+        chevron_up.classList.remove('selected')
+      }
+      else {
+        chevron_up.classList.add('selected')
+        chevron_down.classList.remove('selected')
+      }
     }
     else
     {
-      container.querySelector('.chevron.up').classList.remove('selected')
-      container.querySelector('.chevron.down').classList.add('selected')
+      if (chevron_down.classList.contains('selected')) {
+        chevron_down.classList.remove('selected')
+      }
+      else {
+        chevron_down.classList.add('selected')
+        chevron_up.classList.remove('selected')
+      }
     }
 }

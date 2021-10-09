@@ -11,9 +11,10 @@
     -else
       = link_to_true_mark(answer)
   .inline
-    = link_to_upvote_answer(answer)
-    .vote-sum= answer.votes_sum
-    = link_to_downvote_answer(answer)
+    -unless current_user&.author_of? answer
+      = link_to_upvote_answer(answer)
+      .vote-sum= answer.votes_sum
+      = link_to_downvote_answer(answer)
   .tab
     -if answer.files.attached?
       -answer.files.each do |file|

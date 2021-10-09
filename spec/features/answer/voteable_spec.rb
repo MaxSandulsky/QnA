@@ -13,11 +13,10 @@ feature 'User can vote for answer', "
       visit question_path(question)
 
       within(".answer-#{answer.id}") do
-        click_on(class: 'answer-upvote')
-
-        expect(find('.vote-counter')).to have_content '0'
-        expect(page).to have_content 'You need to login first!'
+        click_on(class: 'answer-vote', match: :first)
       end
+      
+      expect(page).to have_content 'You need to login first!'
     end
   end
 
@@ -27,31 +26,21 @@ feature 'User can vote for answer', "
       visit question_path(question)
     end
 
-    scenario 'upvote then downvote unfamiliar answer' do
+    scenario 'upvote then unvote unfamiliar answer', js: true do
       within(".answer-#{answer.id}") do
-        click_on(class: 'answer-upvote')
+        click_on(class: 'answer-vote', match: :first)
 
-        expect(find('.vote-counter')).to have_content '1'
+        expect(find('.vote-sum')).to have_content '1'
 
-        click_on(class: 'answer-downvote')
+        click_on(class: 'answer-vote', match: :first)
 
-        expect(find('.vote-counter')).to have_content '-1'
-      end
-    end
-
-    scenario 'downvote unfamiliar answer' do
-      within(".answer-#{answer.id}") do
-        click_on(class: 'answer-downvote')
-
-        expect(find('.vote-counter')).to have_content '-1'
+        expect(find('.vote-sum')).to have_content '0'
       end
     end
 
     scenario 'upvote own answer' do
       within(".answer-#{answer.id}") do
-        click_on(class: 'answer-upvote')
-
-        expect(find('.vote-counter')).to have_content '0'
+        expect(page).not_to have_css 'answer-vote'
       end
     end
   end
