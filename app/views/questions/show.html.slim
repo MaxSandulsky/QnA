@@ -1,6 +1,13 @@
 .question
-  .complete-question
-    = render "questions/complete_question"
+
+  div class="question-#{question.id}"
+    .inline
+      = render "questions/complete_question"
+    .inline.tab
+      -unless current_user&.author_of? question
+        = link_to_upvote_question(question)
+        .vote-sum= question.votes_sum
+        = link_to_downvote_question(question)
 
   .answers
     = render "answers/index"

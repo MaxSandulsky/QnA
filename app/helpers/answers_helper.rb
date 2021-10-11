@@ -19,12 +19,32 @@ module AnswersHelper
   end
 
   def link_to_true_mark(answer)
-    link_to (heroicon 'check', options: { class: 'check' }), mark_answer_path(answer, answer: { correct: true }),
-            class: 'answer-mark', method: :patch, remote: true
+    link_to (heroicon 'check', options: { class: 'check' }),
+            mark_answer_path(answer, answer: { correct: true }), class: 'answer-mark', method: :patch, remote: true
   end
 
   def link_to_delete_answer_attachment(answer, file)
     link_to t('.delete'), remove_attachment_answer_path(answer, attachment_id: file.id),
             class: "file-delete-#{file.id}", method: :patch, remote: true
+  end
+
+  def link_to_upvote_answer(answer)
+    link_to (heroicon 'chevron-up', options: { class: "chevron up #{chevron_params(answer, true)}" }),
+             upvote_answer_path(answer), class: "answer-vote", id: answer.id,
+             data: { type: :json }, method: :post, remote: true
+  end
+
+  def link_to_downvote_answer(answer)
+    link_to (heroicon 'chevron-down', options: { class: "chevron down #{chevron_params(answer, false)}" }),
+             downvote_answer_path(answer), class: "answer-vote", id: answer.id,
+             data: { type: :json }, method: :post, remote: true
+  end
+
+  private
+
+  def chevron_params(answer, direction)
+    if current_user&.vote_for answer
+      return 'selected' if current_user.vote_for(answer).promote == direction
+    end
   end
 end
