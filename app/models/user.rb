@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_many :answers, inverse_of: 'author', foreign_key: 'author_id'
   has_many :questions, inverse_of: 'author', foreign_key: 'author_id'
+  has_many :comments, inverse_of: 'author', foreign_key: 'author_id'
   has_many :votes, dependent: :destroy
 
   def author_of? subject

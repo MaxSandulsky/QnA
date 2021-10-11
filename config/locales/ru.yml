@@ -70,6 +70,10 @@ ru:
     update:
       edit_success: "Ответ сохранён"
 
+  comments:
+    form:
+      save: "Сохранить комментарий"
+
   activerecord:
     errors:
       models:

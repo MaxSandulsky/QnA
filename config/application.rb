@@ -13,6 +13,8 @@ module QnA
     config.i18n.default_locale = :ru
     config.active_storage.replace_on_assign_to_many = false
 
+    config.action_cable.disable_request_forgery_protection = false
+
     config.generators do |g|
       g.test_framework :rspec,
                        view_specs: false,

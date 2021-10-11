@@ -22,6 +22,30 @@ feature 'User can create question', "
       expect(page).to have_content 'Ваш вопрос успешно создан!'
     end
 
+    it 'appears on another users page', js: true do
+      Capybara.using_session('user') do
+        login user
+        visit new_question_path
+      end
+
+      Capybara.using_session('guest') do
+        visit questions_path
+      end
+
+      Capybara.using_session('user') do
+        fill_in 'Заголовок', with: 'Test question title'
+        fill_in 'Описание', with: 'Body for test question'
+        click_on 'Сохранить'
+
+        expect(page).to have_content 'Test question title'
+        expect(page).to have_content 'Ваш вопрос успешно создан!'
+      end
+
+      Capybara.using_session('guest') do
+        expect(page).to have_content 'Test question title'
+      end
+    end
+
     it 'tries to create question with file' do
       fill_in 'Заголовок', with: 'Test question title'
       fill_in 'Описание', with: 'Body for test question'

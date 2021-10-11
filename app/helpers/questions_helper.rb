@@ -32,6 +32,10 @@ module QuestionsHelper
              data: { type: :json }, method: :post, remote: true
   end
 
+  def link_to_new_question_comment(question)
+    link_to t('.new_comment'), new_comment_question_path, remote: true
+  end
+
   private
 
   def chevron_params(question, direction)
