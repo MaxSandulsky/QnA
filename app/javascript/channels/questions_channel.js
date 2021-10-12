@@ -1,4 +1,5 @@
 import consumer from "./consumer"
+import {TemplateHandler} from 'utilities/template_handler'
 
 consumer.subscriptions.create("QuestionsChannel", {
     initialized() {
@@ -16,14 +17,15 @@ consumer.subscriptions.create("QuestionsChannel", {
         this.perform('follow', { question_id: question_id } )
     },
 
-    received(data) {
-        if (data.includes('comment')) {
-            const comments = document.querySelector('.comments')
-            comments.insertAdjacentHTML('beforeend', data)
-        }
-        else if (data.includes('question')) {
-            const questions_list = document.querySelector('.questions-list')
-            questions_list.insertAdjacentHTML('beforeend', data)
+    received(row_html) {
+        let template = new TemplateHandler(row_html)
+        console.log(row_html);
+        if (template.comment()) {
+            template.insert_comment()
+        } else if (template.answer()) {
+            template.insert_answer()
+        } else if (template.question()) {
+            template.insert_question()
         }
     }
 })

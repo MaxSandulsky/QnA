@@ -40,6 +40,12 @@ module AnswersHelper
              data: { type: :json }, method: :post, remote: true
   end
 
+  def link_to_new_answer_comment(answer)
+    link_to t('.new_comment'), new_comment_answer_path(answer),
+            class: "button-comment-answer-#{answer.id}", remote: true,
+            data: { answer_id: answer.id }
+  end
+
   private
 
   def chevron_params(answer, direction)

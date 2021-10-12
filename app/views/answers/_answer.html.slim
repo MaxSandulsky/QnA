@@ -1,39 +1,47 @@
 -unless answer.new_record?
-  .inline
-    ul
-      li= answer.body
-      li= answer.author.email
-      li= answer.created_at.to_date
-      div class="answer-errors-#{answer.id}"
-  .inline
-    -if answer.correct?
-      = link_to_false_mark(answer)
-    -else
-      = link_to_true_mark(answer)
-  .inline
-    -unless current_user&.author_of? answer
-      = link_to_upvote_answer(answer)
-      .vote-sum= answer.votes_sum
-      = link_to_downvote_answer(answer)
-  .tab
-    -if answer.files.attached?
-      -answer.files.each do |file|
-        p= link_to file.filename.to_s, url_for(file)
-  -unless answer.links.reject(&:new_record?).empty?
-    .links
-      p= t('.links')
+  div class="answer" id="answer-#{answer.id}"
+    .inline
       ul
-        -answer.links.each do |link|
-          -if link.gist?
-            li
-              .inline
-                = link_to link.name, link.url
-              .tab.inline
-                = gist_from_link(link.url)
-          -else
-            li= link_to link.name, link.url
-div
-  .inline
-    = link_to_delete_answer(answer)
-    = link_to_edit_answer(answer)
-    = render "answers/form_edit", answer: answer
+        li= answer.body
+        li= answer.author.email
+        li= answer.created_at.to_date
+        div class="answer-errors-#{answer.id}"
+    .inline
+      -if answer.correct?
+        = link_to_false_mark(answer)
+      -else
+        = link_to_true_mark(answer)
+    .inline
+      -unless current_user&.author_of? answer
+        = link_to_upvote_answer(answer)
+        .vote-sum= answer.votes_sum
+        = link_to_downvote_answer(answer)
+    .tab
+      -if answer.files.attached?
+        -answer.files.each do |file|
+          p= link_to file.filename.to_s, url_for(file)
+    -unless answer.links.reject(&:new_record?).empty?
+      .links
+        p= t('.links')
+        ul
+          -answer.links.each do |link|
+            -if link.gist?
+              li
+                .inline
+                  = link_to link.name, link.url
+                .tab.inline
+                  = gist_from_link(link.url)
+            -else
+              li= link_to link.name, link.url
+    div
+      .inline
+        = link_to_delete_answer(answer)
+        = link_to_edit_answer(answer)
+        = render "answers/form_edit", answer: answer
+
+    = link_to_new_answer_comment(answer)
+    div class="form-comment-answer-#{answer.id} hide" = render "comments/form", comment: @comment, commentable: answer
+
+    .comments
+      -unless answer.comments.empty?
+        =render answer.comments

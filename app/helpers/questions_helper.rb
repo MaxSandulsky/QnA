@@ -33,7 +33,7 @@ module QuestionsHelper
   end
 
   def link_to_new_question_comment(question)
-    link_to t('.new_comment'), new_comment_question_path, remote: true
+    link_to t('.new_comment'), new_comment_question_path, class: 'button-comment-question', remote: true
   end
 
   private

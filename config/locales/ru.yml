@@ -17,9 +17,6 @@ ru:
     reward_fields:
       reward_name: 'Название награды'
       picture_field:  'Изображение'
-    complete_question:
-      edit: "Изменить вопрос"
-      delete: "Удалить вопрос"
     destroy:
       success: 'Вопрос был удален'
       ownership_violation: 'Вопрос вам не принадлежит'
@@ -41,10 +38,15 @@ ru:
       remove_link: 'Удалить ссылку'
     new:
       question_new: 'Задать новый вопрос'
+    show:
+      edit: "Изменить вопрос"
+      delete: "Удалить вопрос"
+      new_comment: 'Добавить комментарий'
 
   answers:
     answer:
       edit: 'Изменить'
+      new_comment: 'Добавить комментарий'
     form_new:
       body_field: 'Новый ответ'
       file_field: 'Прикрепить файлы'

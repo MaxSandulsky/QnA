@@ -4,6 +4,8 @@ class AnswersController < ApplicationController
 
   before_action :authenticate_user!
 
+  after_action :publish_answer, only: %i[create]
+
   def create
     @answer = question.answers.create(create_params)
   end
@@ -41,5 +43,16 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body, :correct, files: [], links_attributes: %i[name url id _destroy])
+  end
+
+  def publish_answer
+    return if answer.errors.any?
+    ActionCable.server.broadcast(
+      "question-#{question.id}", AnswersController.render_with_signed_in_user(
+          current_user,
+          partial: 'answers/answer',
+          locals: { answer: answer, current_user: current_user }
+      )
+    )
   end
 end

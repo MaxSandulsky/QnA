@@ -12,8 +12,7 @@ class QuestionsController < ApplicationController
 
   def show
     @answers = question.answers
-    @answer = question.answers.new
-    @answer.links.build
+    new_answer.links.build
   end
 
   def new
@@ -51,7 +50,11 @@ class QuestionsController < ApplicationController
 
   private
 
-  helper_method :question
+  helper_method :question, :new_answer
+
+  def new_answer
+    @answer = question.answers.new
+  end
 
   def question
     @question ||= params[:id] ? Question.with_attached_files.find(params[:id]) : Question.new

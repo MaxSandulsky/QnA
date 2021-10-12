@@ -1,4 +1,5 @@
-p= form_with url: url_for(controller: controller_name, action: 'create_comment'), model: commentable, method: :post, local: false do |form|
+p= form_with url: url_for(controller: commentable.class.to_s.tableize, action: 'create_comment', id: commentable.id),
+             model: commentable, method: :post, local: false do |form|
   .tab
     p= form.fields_for :comment do |c|
       = render 'comment_fields', f: c
