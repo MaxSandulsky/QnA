@@ -27,7 +27,7 @@ div class="form-question-edit hide" = render "questions/form", question: questio
 
 .new_comment
   = link_to_new_question_comment(question)
-  div class="form-comment" = render "comments/form", comment: question.comments.new, commentable: question
+  div class="form-comment" = render "comments/form", comment: @comment, commentable: question
 
 .comments
   -unless question.comments.empty?

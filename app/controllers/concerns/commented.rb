@@ -24,7 +24,7 @@ module Commented
   def publish_comment
     return if @comment.errors.any?
     ActionCable.server.broadcast(
-      'questions', ApplicationController.render(
+      "question-#{@comment.commentable_id}", ApplicationController.render(
           partial: 'comments/comment',
           locals: { comment: @comment }
       )
