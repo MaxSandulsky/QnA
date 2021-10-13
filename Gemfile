@@ -36,8 +36,8 @@ gem 'faraday_middleware'
 gem 'heroicon'
 gem 'image_processing'
 gem 'octokit'
-gem 'slim-rails'
 gem 'skim'
+gem 'slim-rails'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

@@ -7,11 +7,11 @@ RSpec.describe User, type: :model do
     let(:question) { create(:question, author: user) }
     let(:dif_question) { create(:question) }
 
-    it 'should return true if user is an author of' do
+    it 'returns true if user is an author of' do
       expect(user).to be_author_of(question)
     end
 
-    it 'should return false if user isn an author of' do
+    it 'returns false if user isn an author of' do
       expect(user).not_to be_author_of(dif_question)
     end
   end
@@ -23,7 +23,7 @@ RSpec.describe User, type: :model do
     let!(:first_answer) { create(:answer, question: first_question, correct: true, author: user) }
     let!(:second_answer) { create(:answer, question: second_question, correct: true, author: user) }
 
-    it 'should have rewards' do
+    it 'has rewards' do
       expect(user.rewards.count).to eq 2
     end
   end
@@ -33,8 +33,8 @@ RSpec.describe User, type: :model do
     let(:answer) { create(:answer) }
     let!(:vote) { create(:vote, user: user, voteable: answer) }
 
-    it "could have vote" do
-      expect(user.vote_for answer).to eq(vote)
+    it 'could have vote' do
+      expect(user.vote_for(answer)).to eq(vote)
     end
   end
 end

@@ -6,12 +6,12 @@ module Commented
   end
 
   def new_comment
-    @commented = self.send(controller_name.singularize.to_sym)
+    @commented = send(controller_name.singularize.to_sym)
     @comment = @commented.comments.new
   end
 
   def create_comment
-    @comment = self.send(controller_name.singularize.to_sym).comments.build(comment_params)
+    @comment = send(controller_name.singularize.to_sym).comments.build(comment_params)
     @comment.save!
   end
 
@@ -23,11 +23,12 @@ module Commented
 
   def publish_comment
     return if @comment.errors.any?
+
     ActionCable.server.broadcast(
       "question-#{commentable_id}", ApplicationController.render(
-        partial: 'comments/comment',
-        locals: { comment: @comment }
-      )
+                                      partial: 'comments/comment',
+                                      locals: { comment: @comment }
+                                    )
     )
   end
 

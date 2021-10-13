@@ -10,18 +10,20 @@ module Voted
   end
 
   def responding(value)
-    @voted = self.send(controller_name.singularize.to_sym)
+    @voted = send(controller_name.singularize.to_sym)
     @vote = @voted.votes.build(promote: value, user: current_user)
 
     respond_to do |format|
       if @vote.save
         @vote.purge_votes
 
-        format.json { render json: { votes_sum: @voted.votes_sum, obj_id: @voted.id, } }
+        format.json { render json: { votes_sum: @voted.votes_sum, obj_id: @voted.id } }
       else
         @vote.purge_votes
 
-        format.json { render json: { votes_sum: @voted.votes_sum, obj_id: @voted.id, errors: @vote.errors.full_messages } }
+        format.json do
+          render json: { votes_sum: @voted.votes_sum, obj_id: @voted.id, errors: @vote.errors.full_messages }
+        end
       end
     end
   end

@@ -13,12 +13,12 @@ Rails.application.routes.draw do
     post :create_comment, on: :member
   end
 
-  resources :questions, only: %i[index show new create update destroy], concerns: [:voteable, :commentable] do
+  resources :questions, only: %i[index show new create update destroy], concerns: %i[voteable commentable] do
     patch :remove_attachment, on: :member
 
     resources :comments, shallow: true, only: :create
 
-    resources :answers, shallow: true, only: %i[create update destroy], concerns: [:voteable, :commentable] do
+    resources :answers, shallow: true, only: %i[create update destroy], concerns: %i[voteable commentable] do
       resources :comments, shallow: true, only: :create
 
       patch :mark, on: :member

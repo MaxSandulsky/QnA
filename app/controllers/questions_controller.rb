@@ -68,11 +68,12 @@ class QuestionsController < ApplicationController
 
   def publish_question
     return if question.errors.any?
+
     ActionCable.server.broadcast(
       'questions', ApplicationController.render(
-          partial: 'questions/question',
-          locals: { question: question }
-      )
+                     partial: 'questions/question',
+                     locals: { question: question }
+                   )
     )
   end
 end

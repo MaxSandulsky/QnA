@@ -19,7 +19,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'renders create view' do
         post_create
 
-        expect(response).to render_template "answers/_answer"
+        expect(response).to render_template 'answers/_answer'
       end
     end
 

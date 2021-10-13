@@ -56,12 +56,13 @@ class AnswersController < ApplicationController
 
   def publish_answer
     return if answer.errors.any?
+
     ActionCable.server.broadcast(
       "question-#{question.id}", AnswersController.render_with_signed_in_user(
-          current_user,
-          partial: 'answers/answer',
-          locals: { answer: answer, current_user: current_user }
-      )
+                                   current_user,
+                                   partial: 'answers/answer',
+                                   locals: { answer: answer, current_user: current_user }
+                                 )
     )
   end
 end

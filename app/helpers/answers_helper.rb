@@ -30,14 +30,14 @@ module AnswersHelper
 
   def link_to_upvote_answer(answer)
     link_to (heroicon 'chevron-up', options: { class: "chevron up #{chevron_params(answer, true)}" }),
-             upvote_answer_path(answer), class: "answer-vote", id: answer.id,
-             data: { type: :json }, method: :post, remote: true
+            upvote_answer_path(answer), class: 'answer-vote', id: answer.id,
+                                        data: { type: :json }, method: :post, remote: true
   end
 
   def link_to_downvote_answer(answer)
     link_to (heroicon 'chevron-down', options: { class: "chevron down #{chevron_params(answer, false)}" }),
-             downvote_answer_path(answer), class: "answer-vote", id: answer.id,
-             data: { type: :json }, method: :post, remote: true
+            downvote_answer_path(answer), class: 'answer-vote', id: answer.id,
+                                          data: { type: :json }, method: :post, remote: true
   end
 
   def link_to_new_answer_comment(answer)
@@ -49,8 +49,6 @@ module AnswersHelper
   private
 
   def chevron_params(answer, direction)
-    if current_user&.vote_for answer
-      return 'selected' if current_user.vote_for(answer).promote == direction
-    end
+    return 'selected' if current_user&.vote_for answer && (current_user.vote_for(answer).promote == direction)
   end
 end
