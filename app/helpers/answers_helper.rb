@@ -49,6 +49,6 @@ module AnswersHelper
   private
 
   def chevron_params(answer, direction)
-    return 'selected' if current_user&.vote_for answer && (current_user.vote_for(answer).promote == direction)
+    return 'selected' if (current_user&.vote_for(answer))&.promote == direction
   end
 end

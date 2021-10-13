@@ -10,7 +10,7 @@ feature 'User can vote for question', "
   describe 'Unauthenticated users cant vote' do
     scenario 'upvote unfamiliar question' do
       visit question_path(question)
-      
+
       within("#question-#{question.id}") do
         click_on(class: 'question-vote', match: :first)
       end
