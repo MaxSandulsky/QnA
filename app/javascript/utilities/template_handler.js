@@ -30,7 +30,6 @@ export class TemplateHandler {
     }
 
     insert_comment() {
-        alert('ins')
         const container = document.getElementById(this.commentableType + '-' + this.commentableId)
         container.querySelector('.comments').appendChild(this.firstChild)
     }

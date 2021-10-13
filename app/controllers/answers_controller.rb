@@ -29,12 +29,21 @@ class AnswersController < ApplicationController
 
   private
 
+  helper_method :question, :new_answer
+
+  def new_answer
+    @answer = question.answers.new
+  end
+
   def answer
-    @answer ||= Answer.find(params[:id])
+    @answer ||= Answer.find(params[:id]) if params[:id]
+    @answer
   end
 
   def question
+    @question ||= answer.question if answer
     @question ||= Question.find(params[:question_id])
+    @question
   end
 
   def create_params

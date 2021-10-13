@@ -19,18 +19,12 @@ RSpec.describe AnswersController, type: :controller do
       it 'renders create view' do
         post_create
 
-        expect(response).to render_template :create
+        expect(response).to render_template "answers/_answer"
       end
     end
 
     context 'with invalid attributes' do
       let(:answer_params) { attributes_for(:answer, :invalid) }
-
-      it 'renders create view' do
-        post_create
-
-        expect(response).to render_template :create
-      end
 
       it 'didn`t save answer' do
         expect { post_create }.not_to change(question.answers, :count)

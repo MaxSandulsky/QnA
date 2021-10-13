@@ -12,10 +12,10 @@ feature 'User can vote for answer', "
     scenario 'upvote unfamiliar answer' do
       visit question_path(question)
 
-      within(".answer-#{answer.id}") do
+      within("#answer-#{answer.id}") do
         click_on(class: 'answer-vote', match: :first)
       end
-      
+
       expect(page).to have_content 'You need to login first!'
     end
   end
@@ -27,7 +27,7 @@ feature 'User can vote for answer', "
     end
 
     scenario 'upvote then unvote unfamiliar answer', js: true do
-      within(".answer-#{answer.id}") do
+      within("#answer-#{answer.id}") do
         click_on(class: 'answer-vote', match: :first)
 
         expect(find('.vote-sum')).to have_content '1'
@@ -39,7 +39,7 @@ feature 'User can vote for answer', "
     end
 
     scenario 'upvote own answer' do
-      within(".answer-#{answer.id}") do
+      within("#answer-#{answer.id}") do
         expect(page).not_to have_css 'answer-vote'
       end
     end

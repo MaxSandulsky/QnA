@@ -18,6 +18,7 @@ feature 'User can add link to answer', "
       click_on 'I have answer'
 
       fill_in 'Новый ответ', with: 'Answer body'
+      click_on 'Добавить ссылку'
     end
 
     scenario 'can add proper link ', js: true do
@@ -91,6 +92,7 @@ feature 'User can add link to answer', "
 
       visit question_path(question)
       click_on 'I have answer'
+      click_on 'Добавить ссылку'
 
       fill_in 'Новый ответ', with: 'Answer body'
       fill_in 'Текст ссылки', with: urls_names[0]

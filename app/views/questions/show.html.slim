@@ -1,6 +1,12 @@
 div class="question" id="question-#{question.id}"
-  h1= question.title
-  h2= question.body
+  .inline.tab
+    h1= question.title
+    h2= question.body
+  .inline.tab
+    -unless current_user&.author_of? question
+      = link_to_upvote_question(question)
+      .vote-sum= question.votes_sum
+      = link_to_downvote_question(question)
 
   p= link_to_delete_question(question)
   p= link_to_edit_question(question)
@@ -32,18 +38,13 @@ div class="question" id="question-#{question.id}"
   .comments
     -unless question.comments.empty?
       =render question.comments
-      .inline.tab
-        -unless current_user&.author_of? question
-          = link_to_upvote_question(question)
-          .vote-sum= question.votes_sum
-          = link_to_downvote_question(question)
 
   .answers
-    = render question.answers
+    = render question.sort_answers
 
   .new-answer-errors
     = render 'shared/errors', resource: @answer
 
   .new_answer
-    = render 'answers/form_new', answer: @answer
+    = render 'answers/form_new', question: question
     = button_to 'I have answer', question_answers_path(question), class: "button-answer-new"

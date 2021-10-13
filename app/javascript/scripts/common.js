@@ -17,8 +17,7 @@ export const votes_by_ajaj_with_target = (trigger_class, updating_class, target_
         trigger.addEventListener('ajax:success', event => {
             if (event.target.classList.contains((target_class).substring(1))) {
                 const xhr = event.detail[0]
-
-                const container = document.querySelector(container_class + xhr.obj_id)
+                const container = document.getElementById(container_class + xhr.obj_id)
                 const updating = container.querySelector(updating_class)
 
                 updating.textContent = xhr.votes_sum

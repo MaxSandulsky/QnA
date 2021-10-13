@@ -7,19 +7,18 @@ consumer.subscriptions.create("QuestionsChannel", {
     },
 
     connected() {
-        const question = document.querySelector('.question')
-        let question_id
-
-        if (question) {
-            question_id = question.dataset.questionId
+        if (document.querySelector('.questions-list')) {
+            this.perform('follow', { question_id: 'questions' } )
+            return
         }
+        const question = document.querySelector('.question')
 
-        this.perform('follow', { question_id: question_id } )
+        this.perform('follow', { question_id: question.id } )
     },
 
     received(row_html) {
         let template = new TemplateHandler(row_html)
-        console.log(row_html);
+
         if (template.comment()) {
             template.insert_comment()
         } else if (template.answer()) {

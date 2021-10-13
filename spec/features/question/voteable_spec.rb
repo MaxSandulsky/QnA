@@ -10,8 +10,8 @@ feature 'User can vote for question', "
   describe 'Unauthenticated users cant vote' do
     scenario 'upvote unfamiliar question' do
       visit question_path(question)
-
-      within(".question-#{question.id}") do
+      
+      within("#question-#{question.id}") do
         click_on(class: 'question-vote', match: :first)
       end
 
@@ -27,7 +27,7 @@ feature 'User can vote for question', "
     scenario 'upvote then unvote unfamiliar question', js: true do
       visit question_path(question)
 
-      within(".question-#{question.id}") do
+      within("#question-#{question.id}") do
         click_on(class: 'question-vote', match: :first)
 
         expect(find('.vote-sum')).to have_content '1'
@@ -41,7 +41,7 @@ feature 'User can vote for question', "
     scenario 'upvote own question' do
       visit question_path(own_question)
 
-      within(".question-#{own_question.id}") do
+      within("#question-#{own_question.id}") do
         expect(page).not_to have_css 'question-vote'
       end
     end

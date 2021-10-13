@@ -14,7 +14,7 @@ class Answer < ApplicationRecord
   validate :correct_answers
 
   def correct_answers
-    errors.add(:correct) if !errors.present? && question.correct_answer.present? && question.correct_answer != self
+    errors.add(:correct) if correct && question.correct_answer.present? && question.correct_answer != self
   end
 
   def mark_as(correct)

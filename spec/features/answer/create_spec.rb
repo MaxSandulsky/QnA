@@ -29,10 +29,6 @@ feature 'User can create answer', "
       end
 
       expect(page).to have_content 'Ответ успешно сохранён'
-
-      within '.new_answer' do
-        expect(page).to_not have_selector 'textarea'
-      end
     end
 
     it 'tries to create answer with file' do

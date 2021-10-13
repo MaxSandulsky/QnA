@@ -1,0 +1,4 @@
+document.querySelector('.new-answer-errors').innerHTML = "<%= render 'shared/errors', resource: @answer %>"
+<% unless @answer.errors.any? %>
+  document.getElementById('notice').innerHTML = "<%= t('.create_success') %>"
+<% end %>
