@@ -42,6 +42,8 @@ ru:
       edit: "Изменить вопрос"
       delete: "Удалить вопрос"
       new_comment: 'Добавить комментарий'
+    comment_fields:
+      text_field: 'Ваш комментарий'
 
   answers:
     answer:
