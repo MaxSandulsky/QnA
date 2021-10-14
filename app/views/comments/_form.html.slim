@@ -1,0 +1,7 @@
+p= form_with url: url_for(controller: commentable.class.to_s.tableize, action: 'create_comment', id: commentable.id),
+             model: commentable, method: :post, local: false do |form|
+  .tab
+    p= form.fields_for :comment do |c|
+      = render 'comment_fields', f: c
+
+  p.tab= form.submit t('.save'), class: "comment-submit-button"

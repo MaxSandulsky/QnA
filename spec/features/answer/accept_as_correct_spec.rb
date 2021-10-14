@@ -5,6 +5,7 @@ feature 'User can mark answer as correct', "
   let!(:user) { create(:user) }
   let!(:question) { create(:question_with_answers, author: user) }
   let!(:answer) { create(:answer, question: question) }
+  let!(:own_answer) { create(:answer, question: question, author: user) }
 
   describe 'Authenticated user', js: true do
     background do
@@ -13,13 +14,21 @@ feature 'User can mark answer as correct', "
     end
 
     it 'can mark any answer' do
-      within(".answer-#{answer.id}") do
+      within("#answer-#{answer.id}") do
         click_on(class: 'answer-mark')
 
         expect(page).to have_css('.correct')
       end
 
       expect(page).to have_css('.correct', count: 1)
+    end
+
+    it 'cannt mark own answer' do
+      within("#answer-#{own_answer.id}") do
+        click_on(class: 'answer-mark')
+
+        expect(page).not_to have_css('.correct')
+      end
     end
   end
 
@@ -30,7 +39,7 @@ feature 'User can mark answer as correct', "
     end
 
     it 'can`t mark answers' do
-      within(".answer-#{answer.id}") do
+      within("#answer-#{answer.id}") do
         click_on(class: 'answer-mark')
       end
 

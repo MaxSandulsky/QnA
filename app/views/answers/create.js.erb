@@ -1,9 +1,4 @@
 document.querySelector('.new-answer-errors').innerHTML = "<%= render 'shared/errors', resource: @answer %>"
-
-<% if @answer.persisted? %>
-  document.querySelector('.answers').insertAdjacentHTML('beforeend', "<div class='answer-<%= @answer.id %>'><%= j render @answer %></div>")
-  document.querySelector('.form-answer-new').querySelector('#answer_body').value = ''
-  document.querySelector('.form-answer-new').classList.add('hide')
-  document.querySelector('.button-answer-new').classList.remove('hide')
+<% unless @answer.errors.any? %>
   document.getElementById('notice').innerHTML = "<%= t('.create_success') %>"
 <% end %>

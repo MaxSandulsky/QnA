@@ -1,4 +1,4 @@
-div class='question'
+div class='question' id="#{question.id}"
   ul
     li= link_to question.title, question_path(question)
     li= "#{t('.answer_count')}: #{question.answers.count}"

@@ -22,21 +22,23 @@ module QuestionsHelper
 
   def link_to_upvote_question(question)
     link_to (heroicon 'chevron-up', options: { class: "chevron up #{chevron_params(question, true)}" }),
-             upvote_question_path(question), class: "question-vote", id: question.id,
-             data: { type: :json }, method: :post, remote: true
+            upvote_question_path(question), class: 'question-vote', id: question.id,
+                                            data: { type: :json }, method: :post, remote: true
   end
 
   def link_to_downvote_question(question)
     link_to (heroicon 'chevron-down', options: { class: "chevron down #{chevron_params(question, false)}" }),
-             downvote_question_path(question), class: "question-vote", id: question.id,
-             data: { type: :json }, method: :post, remote: true
+            downvote_question_path(question), class: 'question-vote', id: question.id,
+                                              data: { type: :json }, method: :post, remote: true
+  end
+
+  def link_to_new_question_comment(_question)
+    link_to t('.new_comment'), new_comment_question_path, class: 'button-comment-question', remote: true
   end
 
   private
 
   def chevron_params(question, direction)
-    if current_user&.vote_for question
-      return 'selected' if current_user.vote_for(question).promote == direction
-    end
+    return 'selected' if (current_user&.vote_for(question))&.promote == direction
   end
 end

@@ -1,1 +1,8 @@
-document.querySelector('.answers').innerHTML = "<%= j render 'answers/index', question: Answer.find(params[:id]).question %>"
+document.getElementById("question-<%= @answer.question.id %>").remove()
+
+{
+
+    let template = document.createElement('template')
+    template.innerHTML = "<%= j render 'questions/show', question: @answer.question %>".trim()
+    document.querySelector('body').appendChild(template.content)
+}

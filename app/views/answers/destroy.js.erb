@@ -1,2 +1,4 @@
-document.querySelector(".answer-<%= @answer.id %>").innerHTML = ""
-document.getElementById('notice').innerHTML = "<%= t('.delete_success') %>"
+<% unless @answer.persisted? %>
+    document.getElementById("answer-<%= @answer.id %>").remove()
+    document.getElementById('notice').innerHTML = "<%= t('.delete_success') %>"
+<% end %>

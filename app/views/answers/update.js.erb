@@ -1,6 +1,13 @@
 <% if !@answer.errors.present? %>
-  document.querySelector('.answers').innerHTML = "<%= j render 'answers/index', question: @answer.question %>"
-  document.getElementById('notice').innerHTML = "<%= t('.edit_success') %>"
+    document.getElementById("answer-<%= @answer.id %>").remove()
+
+    {
+        let template = document.createElement('template')
+        template.innerHTML = "<%= j render 'answers/answer', answer: @answer %>".trim()
+        document.querySelector('.answers').appendChild(template.content)
+    }
+
+    document.getElementById('notice').innerHTML = "<%= t('.edit_success') %>"
 <% else %>
-  document.querySelector(".answer-errors-<%= @answer.id %>").innerHTML = "<%= render 'shared/errors', resource: @answer %>"
+    document.querySelector(".answer-errors-<%= @answer.id %>").innerHTML = "<%= render 'shared/errors', resource: @answer %>"
 <% end %>

@@ -22,7 +22,7 @@ feature 'User can edit his answer', "
     end
 
     scenario 'edits his answer with valid attributes' do
-      within(".answer-#{own_answer.id}") do
+      within("#answer-#{own_answer.id}") do
         click_on 'Изменить'
         fill_in 'Изменить ответ', with: 'edited answer'
         click_on 'Сохранить'
@@ -50,12 +50,12 @@ feature 'User can edit his answer', "
       click_on(class: "file-delete-#{own_answer.files.first.id}")
       sleep 3
       click_on 'Сохранить'
-      
+
       expect(page).to_not have_link 'storage.yml'
     end
 
     scenario 'edits his answer with errors' do
-      within(".answer-#{own_answer.id}") do
+      within("#answer-#{own_answer.id}") do
         click_on 'Изменить'
         fill_in 'Изменить ответ', with: ''
         click_on 'Сохранить'
@@ -67,7 +67,7 @@ feature 'User can edit his answer', "
     end
 
     scenario 'edits unfamiliar answer' do
-      within(".answer-#{answer.id}") do
+      within("#answer-#{answer.id}") do
         expect(page).to_not have_link 'Изменить'
       end
     end

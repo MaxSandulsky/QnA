@@ -1,0 +1,4 @@
+= content_tag :div, class: "comment-#{comment.id}",
+              data: { commentable_type: comment.commentable.model_name.singular, commentable_id: comment.commentable_id }
+  p= comment.text
+  p= comment.author.email
