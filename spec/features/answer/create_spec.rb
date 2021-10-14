@@ -80,11 +80,7 @@ feature 'User can create answer', "
 
   it 'Unregistered user tries to save answer', js: true do
     visit question_path(question)
-    click_on 'I have answer'
-    fill_in 'Новый ответ', with: 'Answer body'
-    click_on 'Сохранить'
 
-    expect(page).to have_content 'You need to login first!'
-    expect(page).to_not have_content 'Answer body'
+    expect(page).not_to have_selector(:link_or_button, 'I have answer')
   end
 end

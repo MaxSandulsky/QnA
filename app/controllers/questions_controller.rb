@@ -2,9 +2,11 @@ class QuestionsController < ApplicationController
   include Voted
   include Commented
 
-  before_action :authenticate_user!, except: %i[index show]
-
   after_action :publish_question, only: %i[create]
+
+  skip_authorization_check only: %i[show index]
+
+  load_and_authorize_resource
 
   def index
     @questions = Question.all
@@ -31,12 +33,8 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of?(question)
-      question.destroy
-      redirect_to questions_path, notice: t('.success')
-    else
-      redirect_to question, notice: t('.ownership_violation')
-    end
+    question.destroy
+    redirect_to questions_path, notice: t('.success')
   end
 
   def update
@@ -44,7 +42,7 @@ class QuestionsController < ApplicationController
   end
 
   def remove_attachment
-    question.files.find(params[:attachment_id]).purge if current_user.author_of?(question)
+    question.files.find(params[:attachment_id]).purge
     render 'questions/remove_attachment'
   end
 

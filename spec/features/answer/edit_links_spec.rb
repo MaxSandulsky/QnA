@@ -12,11 +12,13 @@ feature 'User can edit links of the answer', "
     login user
     visit question_path(question)
 
-    click_on 'Изменить'
-    fill_in 'Текст ссылки', with: 'Edited link'
-    fill_in 'Адрес ссылки', with: root_url
-    click_on 'Сохранить'
+    within("#answer-#{answer.id}") do
+      click_on 'Изменить'
+      fill_in 'Текст ссылки', with: 'Edited link'
+      fill_in 'Адрес ссылки', with: root_url
+      click_on 'Сохранить'
 
-    expect(page).to have_link 'Edited link', href: root_url
+      expect(page).to have_link 'Edited link', href: root_url
+    end
   end
 end

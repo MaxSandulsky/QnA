@@ -38,6 +38,7 @@ gem 'image_processing'
 gem 'octokit'
 gem 'skim'
 gem 'slim-rails'
+gem 'cancancan'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

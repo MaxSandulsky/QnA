@@ -3,13 +3,17 @@ div class="question" id="question-#{question.id}"
     h1= question.title
     h2= question.body
   .inline.tab
-    -unless current_user&.author_of? question
+    -if can?(:upvote, question)
       = link_to_upvote_question(question)
-      .vote-sum= question.votes_sum
+    .vote-sum= question.votes_sum
+    -if can?(:downvote, question)
       = link_to_downvote_question(question)
 
-  p= link_to_delete_question(question)
-  p= link_to_edit_question(question)
+  -if can?(:update, question)
+    p= link_to_edit_question(question)
+  -if can?(:destroy, question)
+    p= link_to_delete_question(question)
+
   .question-errors
     = render 'shared/errors', resource: question
   div class="form-question-edit hide" = render "questions/form", question: question
@@ -32,8 +36,9 @@ div class="question" id="question-#{question.id}"
     -question.files.each do |file|
       p= link_to file.filename.to_s, url_for(file)
 
-  = link_to_new_question_comment(question)
-  div class="form-comment-question hide" = render "comments/form", comment: @comment, commentable: question
+  -if can?(:new_comment, Question)
+    = link_to_new_question_comment(question)
+    div class="form-comment-question hide" = render "comments/form", comment: @comment, commentable: question
 
   .comments
     -unless question.comments.empty?
@@ -42,9 +47,10 @@ div class="question" id="question-#{question.id}"
   .answers
     = render question.sort_answers
 
-  .new-answer-errors
-    = render 'shared/errors', resource: @answer
+  -if can?(:create, Answer)
+    .new-answer-errors
+      = render 'shared/errors', resource: @answer
 
-  .new_answer
-    = render 'answers/form_new', question: question
-    = button_to 'I have answer', question_answers_path(question), class: "button-answer-new"
+    .new_answer
+      = render 'answers/form_new', question: question
+      = button_to 'I have answer', question_answers_path(question), class: "button-answer-new"

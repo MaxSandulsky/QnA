@@ -1,5 +1,6 @@
 .tab
-  div class='navigation'
+  .navigation
     p= sign_link
     p= link_to 'QnA', root_path
-  p= link_to t('.rewards'), rewards_path
+    -if can?(:read, Reward)
+      p= link_to t('.rewards'), rewards_path

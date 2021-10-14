@@ -1,13 +1,11 @@
 class ApplicationController < ActionController::Base
-  protected
-
-  def authenticate_user!
-    if user_signed_in?
-      super
-    else
-      redirect_to root_path, notice: 'You need to login first!'
-    end
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_path, alert: exception.message
   end
+
+  check_authorization unless: :devise_controller?
+
+  protected
 
   def self.render_with_signed_in_user(user, *args)
     ActionController::Renderer::RACK_KEY_TRANSLATION['warden'] ||= 'warden'

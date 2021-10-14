@@ -70,8 +70,7 @@ feature 'User can create question', "
 
   it 'Unauthenticated user tries to create question' do
     visit questions_path
-    click_on 'Ask question'
 
-    expect(page).to have_content 'You need to login first!'
+    expect(page).not_to have_selector(:link_or_button, 'Ask question')
   end
 end

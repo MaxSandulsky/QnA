@@ -1,7 +1,6 @@
-.reward-fields
+.reward-fields.hide
   .nested-fields
     p= f.label :name, t('.reward_name')
     p= f.text_field :name
     p= f.label :picture, t('.picture_field')
     p= f.file_field :picture
-    = link_to_remove_association t('.remove_reward'), f

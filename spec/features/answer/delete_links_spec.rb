@@ -12,10 +12,14 @@ feature 'User can delete link from answer', "
     login user
     visit question_path(question)
 
-    click_on 'Изменить'
-    click_on 'Удалить ссылку'
-    click_on 'Сохранить'
+    within("#answer-#{answer.id}") do
+      expect(page).to have_link link.name, href: link.url
 
-    expect(page).to_not have_link link.name, href: link.url
+      click_on 'Изменить'
+      click_on 'Удалить ссылку'
+      click_on 'Сохранить'
+
+      expect(page).to_not have_link link.name, href: link.url
+    end
   end
 end

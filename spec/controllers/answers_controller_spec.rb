@@ -62,14 +62,6 @@ RSpec.describe AnswersController, type: :controller do
         expect(response).to render_template :update
       end
     end
-
-    context 'unfamiliar answer' do
-      let(:answer_params) { { id: answer, answer: { body: 'edited answer' } } }
-
-      it 'does not edit answer' do
-        expect { patch_update }.not_to change { answer.reload.body }
-      end
-    end
   end
 
   describe 'DELETE #destroy' do
@@ -88,14 +80,6 @@ RSpec.describe AnswersController, type: :controller do
         expect(response).to render_template :destroy
       end
     end
-
-    context 'unfamiliar answer' do
-      let(:answer_params) { { id: answer } }
-
-      it "don't destroy answer" do
-        expect { delete_destroy }.not_to change(Answer, :count)
-      end
-    end
   end
 
   describe 'PATCH #remove_attachment' do
@@ -105,14 +89,6 @@ RSpec.describe AnswersController, type: :controller do
       expect do
         patch :remove_attachment, params: { id: own_answer, attachment_id: own_answer.files.first.id }, format: :js
       end.to change(own_answer.files, :count).by(-1)
-    end
-
-    it 'does not remove unfamiliar question files' do
-      answer.files.attach(io: File.open("#{Rails.root}/config/storage.yml"), filename: 'storage.yml')
-
-      expect do
-        patch :remove_attachment, params: { id: answer, attachment_id: answer.files.first.id }, format: :js
-      end.to not_change(answer.files, :count)
     end
   end
 end

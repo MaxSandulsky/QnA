@@ -2,10 +2,13 @@ document.querySelector('.question-errors').innerHTML = "<%= render 'shared/error
 
 <% unless question.errors.present? %>
   document.getElementById("question-<%= question.id %>").remove()
-  let template = document.createElement('template')
-  template.innerHTML = "<%= j render 'questions/show', question: @question %>".trim()
-  document.querySelector('body').appendChild(template.content)
-  delete template
+
+  {
+    let template = document.createElement('template')
+    template.innerHTML = "<%= j render 'questions/show', question: @question %>".trim()
+    document.querySelector('body').appendChild(template.content)
+  }
+
   document.querySelector('.form-question-edit').classList.add('hide')
   document.querySelector('.button-question-edit').classList.remove('hide')
   document.getElementById('notice').innerHTML = "<%= t('.edit_success') %>"

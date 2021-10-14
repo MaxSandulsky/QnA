@@ -14,6 +14,8 @@ feature 'User can create reward', "
   end
 
   scenario 'User can create reward while creating question', js: true do
+    click_on 'Добавить награду'
+
     within '.reward-fields' do
       fill_in 'Название награды', with: 'Награда за правильный ответ'
       attach_file 'Изображение', "#{Rails.root}/spec/support/test_image.jpg"
