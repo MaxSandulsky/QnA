@@ -40,10 +40,8 @@ feature 'User can mark answer as correct', "
 
     it 'can`t mark answers' do
       within("#answer-#{answer.id}") do
-        click_on(class: 'answer-mark')
+        expect(page).not_to have_css('.answer-mark')
       end
-
-      expect(page).to have_content 'You need to login first!'
     end
 
     it 'can see what answer has been marked' do

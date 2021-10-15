@@ -14,9 +14,6 @@ ru:
       sign_in: 'Войти'
 
   questions:
-    reward_fields:
-      reward_name: 'Название награды'
-      picture_field:  'Изображение'
     destroy:
       success: 'Вопрос был удален'
       ownership_violation: 'Вопрос вам не принадлежит'
@@ -32,10 +29,7 @@ ru:
       body_field: "Описание"
       delete: "Удалить файл"
       add_link: 'Добавить ссылку'
-    link_fields:
-      link_name: "Текст ссылки"
-      url_path: 'Адрес ссылки'
-      remove_link: 'Удалить ссылку'
+      add_reward: "Добавить награду"
     new:
       question_new: 'Задать новый вопрос'
     show:
@@ -103,3 +97,11 @@ ru:
               required: 'You need to login first!'
             correct:
               invalid: 'Лучший ответ может быть только один'
+  application:
+    reward_fields:
+      reward_name: 'Название награды'
+      picture_field:  'Изображение'
+    link_fields:
+      link_name: "Текст ссылки"
+      url_path: 'Адрес ссылки'
+      remove_link: 'Удалить ссылку'

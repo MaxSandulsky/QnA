@@ -2,28 +2,28 @@ class AnswersController < ApplicationController
   include Voted
   include Commented
 
-  before_action :authenticate_user!
-
   after_action :publish_answer, only: %i[create]
+
+  load_and_authorize_resource
 
   def create
     @answer = question.answers.create(create_params)
   end
 
   def destroy
-    answer.destroy.question if current_user.author_of?(answer)
+    answer.destroy.question
   end
 
   def update
-    render 'answers/update' if current_user.author_of?(answer) && answer.update(answer_params)
+    render 'answers/update' if answer.update(answer_params)
   end
 
   def mark
-    render 'answers/mark' if current_user.author_of?(answer.question) && answer.mark_as(answer_params[:correct])
+    render 'answers/mark' if answer.mark_as(answer_params[:correct])
   end
 
   def remove_attachment
-    answer.files.find(params[:attachment_id]).purge if current_user.author_of?(answer)
+    answer.files.find(params[:attachment_id]).purge
     render 'answers/remove_attachment'
   end
 

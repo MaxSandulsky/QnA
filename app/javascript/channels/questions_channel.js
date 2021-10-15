@@ -17,6 +17,7 @@ consumer.subscriptions.create("QuestionsChannel", {
     },
 
     received(row_html) {
+      {
         let template = new TemplateHandler(row_html)
 
         if (template.comment()) {
@@ -26,5 +27,6 @@ consumer.subscriptions.create("QuestionsChannel", {
         } else if (template.question()) {
             template.insert_question()
         }
+      }
     }
 })

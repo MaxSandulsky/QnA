@@ -7,10 +7,6 @@ class User < ApplicationRecord
   has_many :comments, inverse_of: 'author', foreign_key: 'author_id'
   has_many :votes, dependent: :destroy
 
-  def author_of?(subject)
-    subject.author_id == id
-  end
-
   def rewards
     answers.select(&:correct?).map(&:question).map(&:reward)
   end

@@ -7,20 +7,29 @@
         li= answer.author.email
         li= answer.created_at.to_date
         div class="answer-errors-#{answer.id}"
+
     .inline
-      -if answer.correct?
-        = link_to_false_mark(answer)
-      -else
-        = link_to_true_mark(answer)
+      -if can?(:mark, answer)
+        -if answer.correct?
+          = link_to_false_mark(answer)
+        -else
+          = link_to_true_mark(answer)
+      -elsif answer.correct?
+        = heroicon 'check', options: { class: 'check correct' }
+
+
     .inline
-      -unless current_user&.author_of? answer
+      -if can?(:upvote, answer)
         = link_to_upvote_answer(answer)
-        .vote-sum= answer.votes_sum
+      .vote-sum= answer.votes_sum
+      -if can?(:downvote, answer)
         = link_to_downvote_answer(answer)
+
     .tab
       -if answer.files.attached?
         -answer.files.each do |file|
           p= link_to file.filename.to_s, url_for(file)
+
     -unless answer.links.reject(&:new_record?).empty?
       .links
         p= t('.links')
@@ -34,14 +43,18 @@
                   = gist_from_link(link.url)
             -else
               li= link_to link.name, link.url
+
     div
       .inline
-        = link_to_delete_answer(answer)
-        = link_to_edit_answer(answer)
-        = render "answers/form_edit", answer: answer
+        -if can?(:destroy, answer)
+          = link_to_delete_answer(answer)
+        -if can?(:update, answer)
+          = link_to_edit_answer(answer)
+          = render "answers/form_edit", answer: answer
 
-    = link_to_new_answer_comment(answer)
-    div class="form-comment-answer-#{answer.id} hide" = render "comments/form", comment: @comment, commentable: answer
+    -if can?(:new_comment, Answer)
+      = link_to_new_answer_comment(answer)
+      div class="form-comment-answer-#{answer.id} hide" = render "comments/form", comment: @comment, commentable: answer
 
     .comments
       -unless answer.comments.empty?

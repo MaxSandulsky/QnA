@@ -13,10 +13,8 @@ feature 'User can vote for answer', "
       visit question_path(question)
 
       within("#answer-#{answer.id}") do
-        click_on(class: 'answer-vote', match: :first)
+        expect(page).not_to have_css('.answer-vote')
       end
-
-      expect(page).to have_content 'You need to login first!'
     end
   end
 

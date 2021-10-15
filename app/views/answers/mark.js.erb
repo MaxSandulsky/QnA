@@ -1,7 +1,6 @@
 document.getElementById("question-<%= @answer.question.id %>").remove()
 
 {
-
     let template = document.createElement('template')
     template.innerHTML = "<%= j render 'questions/show', question: @answer.question %>".trim()
     document.querySelector('body').appendChild(template.content)
