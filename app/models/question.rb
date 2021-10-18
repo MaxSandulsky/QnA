@@ -22,4 +22,8 @@ class Question < ApplicationRecord
   def correct_answer
     answers.find_by(correct: true)
   end
+
+  def self.load_with_attachments
+    all.with_attached_files.includes(:links, :comments, :answers)
+  end
 end
