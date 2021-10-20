@@ -27,8 +27,11 @@ class Ability
     guest_abilities
     can :me, User, id: user.id
     can :all, User
-    
+
     can :read, Reward
+
+    can :answers, Question
+
     can :create, [Question, Answer, Comment, Reward]
     can :update, [Question, Answer], author_id: user.id
     can :destroy, [Question, Answer], author_id: user.id

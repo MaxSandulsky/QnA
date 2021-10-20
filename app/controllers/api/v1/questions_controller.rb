@@ -10,6 +10,10 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     render json: question, serializer: FullQuestionSerializer
   end
 
+  def answers
+    render json: question.answers, root: 'answers'
+  end
+
   private
 
   def question
