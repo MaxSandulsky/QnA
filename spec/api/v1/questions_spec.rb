@@ -226,7 +226,166 @@ describe 'Questions API', type: :request do
     end
   end
 
-  describe 'PATCH /api/v1/questions/:id'
+  describe 'PATCH /api/v1/questions/:id' do
+    let(:user) { create(:user) }
+    let(:access_token) { create(:access_token, resource_owner_id: user.id) }
+    let(:question_response) { json['question'] }
 
-  describe 'DELETE /api/v1/questions/:id'
+    context 'own question' do
+      let(:question) { create(:question, author: user) }
+      let(:api_path) { "/api/v1/questions/#{question.id}" }
+      it_behaves_like 'API Authorizable' do
+        let(:method) { :patch }
+      end
+
+
+      context 'valid attributes' do
+        let(:question_hash) do
+          {
+            title: "1",
+            body: "2",
+            links_attributes: [
+              {
+                url: "https://github.com/CanCanCommunity/cancancan/tree/develop/docs",
+                name: "123"
+              },
+              {
+                url: "https://medium.com/@coorasse/eager-load-associations-with-parameters-in-rails-6e9fd7b65923",
+                name: "1"
+              },
+              {
+                url: "https://medium.com/@coorasse/eager-load-associations-with-parameters-in-rails-6e9fd7b65923",
+                name: "2"
+              }
+            ]
+          }
+        end
+
+        before { patch api_path, params: { access_token: access_token.token, question: question_hash }, headers: headers }
+
+        it 'returns 200 status' do
+          expect(response).to be_successful
+        end
+
+        it 'returns all valid fields' do
+          %w[title body].each do |attr|
+            expect(question_response[attr]).to eq question_hash[attr.to_sym]
+          end
+        end
+
+        describe 'links' do
+          let(:link_response) { question_response['short_links'] }
+
+          it 'returns list of links' do
+            expect(link_response.size).to eq 3
+          end
+
+          it 'returns attributes' do
+            %w[url name].each do |attr|
+              expect(link_response.first[attr]).to eq question_hash[:links_attributes].first[attr.to_sym]
+            end
+          end
+        end
+      end
+
+      context 'invalid attributes' do
+        let(:question_hash) do
+          {
+            title: "",
+            body: "",
+            links_attributes: [
+              {
+                url: "",
+                name: "123"
+              },
+              {
+                url: "https://medium.com/@coorasse/eager-load-associations-with-parameters-in-rails-6e9fd7b65923",
+                name: ""
+              }
+            ]
+          }
+        end
+
+        let(:patch_update) { patch api_path, params: { access_token: access_token.token, question: question_hash }, headers: headers }
+
+        it 'returns 200 status' do
+          patch_update
+          expect(response).to be_successful
+        end
+
+        it 'returns errors' do
+          expect { patch_update }.to not_change{ question.reload.body }
+                                 .and not_change{ question.reload.title }
+        end
+      end
+    end
+
+    context 'others question' do
+      let(:question) { create(:question) }
+      let(:api_path) { "/api/v1/questions/#{question.id}" }
+      let(:question_hash) do
+        {
+          body: "2",
+          title: "2",
+          links_attributes: [
+            {
+              url: "https://github.com/CanCanCommunity/cancancan/tree/develop/docs",
+              name: "123"
+            },
+            {
+              url: "https://medium.com/@coorasse/eager-load-associations-with-parameters-in-rails-6e9fd7b65923",
+              name: "1"
+            },
+            {
+              url: "https://medium.com/@coorasse/eager-load-associations-with-parameters-in-rails-6e9fd7b65923",
+              name: "2"
+            }
+          ]
+        }
+      end
+
+      before { patch api_path, params: { access_token: access_token.token, question: question_hash }, headers: headers }
+
+      it 'returns ' do
+        expect(response).not_to be_successful
+      end
+    end
+  end
+
+  describe 'DELETE /api/v1/questions/:id' do
+    let(:user) { create(:user) }
+    let(:access_token) { create(:access_token, resource_owner_id: user.id) }
+    let(:delete_destroy) { delete api_path, params: { access_token: access_token.token }, headers: headers }
+
+    context 'own question' do
+      let!(:question) { create(:question, author: user) }
+      let(:api_path) { "/api/v1/questions/#{question.id}" }
+      it_behaves_like 'API Authorizable' do
+        let(:method) { :delete }
+      end
+
+      it 'returns 200 status' do
+        delete_destroy
+        expect(response).to be_successful
+      end
+
+      it 'destroy question' do
+        expect { delete_destroy }.to change(Question, :count).by(-1)
+      end
+    end
+
+    context 'others question' do
+      let!(:question) { create(:question) }
+      let(:api_path) { "/api/v1/questions/#{question.id}" }
+
+      it 'returns 302 status' do
+        delete_destroy
+        expect(response).not_to be_successful
+      end
+
+      it "doesnot destroy answer" do
+        expect { delete_destroy }.not_to change(Question, :count)
+      end
+    end
+  end
 end

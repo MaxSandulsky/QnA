@@ -21,6 +21,18 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     end
   end
 
+  def update
+    if @question.update(question_params)
+      render json: @question, serializer: FullQuestionSerializer
+    else
+      render json: @question.errors.full_messages
+    end
+  end
+
+  def destroy
+    question.destroy
+  end
+
   private
 
   def question_params

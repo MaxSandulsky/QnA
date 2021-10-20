@@ -194,15 +194,15 @@ describe 'Answers API', type: :request do
   describe 'PATCH /api/v1/answers/:id' do
     let(:user) { create(:user) }
     let(:access_token) { create(:access_token, resource_owner_id: user.id) }
-    let(:answer) { create(:answer, author: user) }
-    let(:other_answer) { create(:answer) }
-    let(:api_path) { "/api/v1/answers/#{answer.id}" }
-    it_behaves_like 'API Authorizable' do
-      let(:method) { :patch }
-    end
+    let(:answer_response) { json['answer'] }
 
-    context 'authorized' do
-      let(:answer_response) { json['answer'] }
+    context 'own answer' do
+      let(:answer) { create(:answer, author: user) }
+      let(:api_path) { "/api/v1/answers/#{answer.id}" }
+      it_behaves_like 'API Authorizable' do
+        let(:method) { :patch }
+      end
+
 
       context 'valid attributes' do
         let(:answer_hash) do
@@ -279,9 +279,72 @@ describe 'Answers API', type: :request do
         end
       end
     end
+
+    context 'others answer' do
+      let(:answer) { create(:answer) }
+      let(:api_path) { "/api/v1/answers/#{answer.id}" }
+      let(:answer_hash) do
+        {
+          body: "2",
+          links_attributes: [
+            {
+              url: "https://github.com/CanCanCommunity/cancancan/tree/develop/docs",
+              name: "123"
+            },
+            {
+              url: "https://medium.com/@coorasse/eager-load-associations-with-parameters-in-rails-6e9fd7b65923",
+              name: "1"
+            },
+            {
+              url: "https://medium.com/@coorasse/eager-load-associations-with-parameters-in-rails-6e9fd7b65923",
+              name: "2"
+            }
+          ]
+        }
+      end
+
+      before { patch api_path, params: { access_token: access_token.token, answer: answer_hash }, headers: headers }
+
+      it 'returns ' do
+        expect(response).not_to be_successful
+      end
+    end
   end
 
   describe 'DELETE /api/v1/answers/:id' do
+    let(:user) { create(:user) }
+    let(:access_token) { create(:access_token, resource_owner_id: user.id) }
+    let(:delete_destroy) { delete api_path, params: { access_token: access_token.token }, headers: headers }
 
+    context 'own answer' do
+      let!(:answer) { create(:answer, author: user) }
+      let(:api_path) { "/api/v1/answers/#{answer.id}" }
+      it_behaves_like 'API Authorizable' do
+        let(:method) { :delete }
+      end
+
+      it 'returns 200 status' do
+        delete_destroy
+        expect(response).to be_successful
+      end
+
+      it 'destroy answer' do
+        expect { delete_destroy }.to change(Answer, :count).by(-1)
+      end
+    end
+
+    context 'others answer' do
+      let!(:answer) { create(:answer) }
+      let(:api_path) { "/api/v1/answers/#{answer.id}" }
+
+      it 'returns 302 status' do
+        delete_destroy
+        expect(response).not_to be_successful
+      end
+
+      it "doesnot destroy answer" do
+        expect { delete_destroy }.not_to change(Answer, :count)
+      end
+    end
   end
 end

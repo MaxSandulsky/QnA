@@ -32,6 +32,10 @@ class Api::V1::AnswersController < Api::V1::BaseController
     end
   end
 
+  def destroy
+    answer.destroy
+  end
+
   private
 
   def create_params
@@ -44,5 +48,9 @@ class Api::V1::AnswersController < Api::V1::BaseController
 
   def question
     @question ||= Question.find(params[:question_id])
+  end
+
+  def answer
+    @answer ||= Answer.find(params[:id])
   end
 end
