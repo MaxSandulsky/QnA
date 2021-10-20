@@ -36,7 +36,7 @@ Rails.application.routes.draw do
         get :all, on: :collection
       end
 
-      resources :questions, only: %i[index show] do
+      resources :questions, only: %i[index show create] do
         get :answers, on: :member
       end
 

@@ -36,10 +36,12 @@ class Ability
     can :update, [Question, Answer], author_id: user.id
     can :destroy, [Question, Answer], author_id: user.id
 
-    can :upvote, [Question, Answer]
-    can :downvote, [Question, Answer]
-    cannot :upvote, [Question, Answer], author_id: user.id
-    cannot :downvote, [Question, Answer], author_id: user.id
+    can :upvote, [Question, Answer] do |apvotable|
+      apvotable.author_id != user.id
+    end
+    can :downvote, [Question, Answer] do |apvotable|
+      apvotable.author_id != user.id
+    end
 
     can :remove_attachment, [Question, Answer], author_id: user.id
 
