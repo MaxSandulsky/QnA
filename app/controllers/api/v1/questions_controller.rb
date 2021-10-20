@@ -12,10 +12,6 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     render json: question, serializer: FullQuestionSerializer
   end
 
-  def answers
-    render json: question.answers, root: 'answers'
-  end
-
   def create
     @question = current_user.questions.build(question_params)
     if @question.save
@@ -28,8 +24,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   private
 
   def question_params
-    params.require(:question).permit(:title, :body, links_attributes: %i[name url id _destroy],
-                                                    reward_attributes: %i[name picture id _destroy])
+    params.require(:question).permit(:title, :body, links_attributes: %i[name url id _destroy])
   end
 
   def question

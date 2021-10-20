@@ -136,36 +136,6 @@ describe 'Questions API', type: :request do
     end
   end
 
-  describe 'GET /api/v1/questions/:id/answers' do
-    let!(:question) { create(:question_with_answers, answers_count: 3) }
-
-    let(:api_path) { "/api/v1/questions/#{question.id}/answers" }
-    it_behaves_like 'API Authorizable' do
-      let(:method) { :get }
-    end
-
-    context 'authorized' do
-      let(:access_token) { create(:access_token) }
-      let(:answers_response) { json['answers'] }
-
-      before { get api_path, params: { access_token: access_token.token }, headers: headers }
-
-      it 'returns 200 status' do
-        expect(response).to be_successful
-      end
-
-      it 'returns list of answers' do
-        expect(answers_response.size).to eq 3
-      end
-
-      it 'returns attributes' do
-        %w[id body created_at updated_at author_id].each do |attr|
-          expect(answers_response.first[attr]).to eq question.answers.first.send(attr).as_json
-        end
-      end
-    end
-  end
-
   describe 'POST /api/v1/questions' do
     let(:api_path) { '/api/v1/questions' }
     it_behaves_like 'API Authorizable' do
@@ -255,4 +225,8 @@ describe 'Questions API', type: :request do
       end
     end
   end
+
+  describe 'PATCH /api/v1/questions/:id'
+
+  describe 'DELETE /api/v1/questions/:id'
 end
