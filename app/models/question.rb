@@ -15,6 +15,8 @@ class Question < ApplicationRecord
 
   validates :body, :title, presence: true
 
+  after_create :calculate_reputation
+
   def sort_answers
     answers.order(correct: :desc)
   end
@@ -25,5 +27,11 @@ class Question < ApplicationRecord
 
   def self.load_with_attachments
     all.with_attached_files.includes(:links, :comments, :answers)
+  end
+
+  private
+
+  def calculate_reputation
+    ReputationService.calculate(self)
   end
 end
