@@ -7,6 +7,6 @@ class Api::V1::ProfilesController < Api::V1::BaseController
 
   def index
     @profiles = User.others(current_user)
-    render json: @profiles, serializer: ProfileSerializer, root: 'profiles'
+    render json: @profiles, each_serializer: ProfileSerializer, root: 'profiles'
   end
 end
