@@ -26,7 +26,6 @@ class Ability
   def user_abilities
     guest_abilities
     can :me, User, id: user.id
-    can :all, User
 
     can :read, Reward
 
@@ -36,11 +35,11 @@ class Ability
     can :update, [Question, Answer], author_id: user.id
     can :destroy, [Question, Answer], author_id: user.id
 
-    can :upvote, [Question, Answer] do |apvotable|
-      apvotable.author_id != user.id
+    can :upvote, [Question, Answer] do |upvotable|
+      user.author_of?(upvotable)
     end
-    can :downvote, [Question, Answer] do |apvotable|
-      apvotable.author_id != user.id
+    can :downvote, [Question, Answer] do |upvotable|
+      user.author_of?(upvotable)
     end
 
     can :remove_attachment, [Question, Answer], author_id: user.id

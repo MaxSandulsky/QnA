@@ -7,11 +7,17 @@ class User < ApplicationRecord
   has_many :comments, inverse_of: 'author', foreign_key: 'author_id'
   has_many :votes, dependent: :destroy
 
+  scope :others, ->(user) { where.not(id: user.id) }
+
   def rewards
     answers.select(&:correct?).map(&:question).map(&:reward)
   end
 
   def vote_for(voteable)
     votes.find_by(voteable: voteable)
+  end
+
+  def author_of?(res)
+    res.author == self
   end
 end

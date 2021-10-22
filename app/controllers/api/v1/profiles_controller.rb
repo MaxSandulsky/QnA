@@ -5,8 +5,8 @@ class Api::V1::ProfilesController < Api::V1::BaseController
     render json: current_resource_owner, serializer: ProfileSerializer, root: 'me'
   end
 
-  def all
-    @profiles = User.all
-    render json: @profiles.reject { |profile| profile == current_resource_owner }, serializer: ProfileSerializer, root: 'profiles'
+  def index
+    @profiles = User.others(current_user)
+    render json: @profiles, serializer: ProfileSerializer, root: 'profiles'
   end
 end
