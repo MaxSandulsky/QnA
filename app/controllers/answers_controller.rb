@@ -11,7 +11,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    answer.destroy.question
+    answer.destroy
   end
 
   def update

@@ -39,6 +39,9 @@ gem 'octokit'
 gem 'skim'
 gem 'slim-rails'
 gem 'cancancan'
+gem 'doorkeeper'
+gem 'active_model_serializers'
+gem 'oj'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

@@ -105,3 +105,12 @@ ru:
       link_name: "Текст ссылки"
       url_path: 'Адрес ссылки'
       remove_link: 'Удалить ссылку'
+  doorkeeper:
+    authorizations:
+      buttons:
+        authorize: 'Авторизовать'
+        deny: 'Отклонить'
+    applications:
+      buttons:
+        submit: 'Подтвердить'
+        destroy: 'Удалить'

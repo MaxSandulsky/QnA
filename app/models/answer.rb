@@ -23,4 +23,8 @@ class Answer < ApplicationRecord
       update!(correct: correct)
     end
   end
+
+  def self.load_with_attachments
+    all.with_attached_files.includes(:links, :comments)
+  end
 end
