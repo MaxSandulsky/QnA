@@ -26,8 +26,8 @@ RSpec.describe Question, type: :model do
   describe 'reputation' do
     let(:question) { build(:question) }
 
-    it "calls Services::Reputation#calculate" do
-      expect(ReputationService).to receive(:calculate).with(question)
+    it "calls ReputationJob" do
+      expect(ReputationJob).to receive(:perform_later).with(question)
       question.save!
     end
 
