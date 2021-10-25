@@ -15,7 +15,7 @@ class Question < ApplicationRecord
 
   validates :body, :title, presence: true
 
-  after_create :calculate_reputation
+  scope :last24hours, -> { where(created_at: 24.hours.ago..Time.now) }
 
   def sort_answers
     answers.order(correct: :desc)
@@ -27,11 +27,5 @@ class Question < ApplicationRecord
 
   def self.load_with_attachments
     all.with_attached_files.includes(:links, :comments, :answers)
-  end
-
-  private
-
-  def calculate_reputation
-    ReputationJob.perform_later(self)
   end
 end
