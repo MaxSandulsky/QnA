@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   resources :questions, only: %i[index show new create update destroy], concerns: %i[voteable commentable] do
     patch :remove_attachment, on: :member
+    patch :subscribe, on: :member
+    patch :unsubscribe, on: :member
 
     resources :comments, shallow: true, only: :create
 

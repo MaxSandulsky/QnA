@@ -3,6 +3,7 @@ class AnswersController < ApplicationController
   include Commented
 
   after_action :publish_answer, only: %i[create]
+  after_action :notificate_subscribers, only: %i[create]
 
   load_and_authorize_resource
 
@@ -64,5 +65,9 @@ class AnswersController < ApplicationController
                                    locals: { answer: answer, current_user: current_user }
                                  )
     )
+  end
+
+  def notificate_subscribers
+    SubscriptionJob.perform_later(question)
   end
 end

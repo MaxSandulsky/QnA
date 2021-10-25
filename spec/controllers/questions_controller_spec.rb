@@ -150,4 +150,36 @@ RSpec.describe QuestionsController, type: :controller do
              }.to change(own_question.files, :count).by(-1)
     end
   end
+
+  describe 'PATCH #subscribe' do
+    let(:question) { create(:question) }
+    let(:subscribe_patch) { patch :subscribe, params: { id: question }, format: :js }
+
+    it 'should add subscription' do
+      expect { subscribe_patch }.to change(question.subscribers, :count).by(1)
+    end
+
+    it 'should render update view' do
+      subscribe_patch
+
+      expect(response).to render_template('questions/update')
+    end
+  end
+
+  describe 'PATCH #unsubscribe' do
+    let(:question) { create(:question) }
+    let(:unsubscribe_patch) { patch :unsubscribe, params: { id: question }, format: :js }
+
+    before { question.subscribers << user }
+
+    it 'should remove subscription' do
+      expect { unsubscribe_patch }.to change(question.subscribers, :count).by(-1)
+    end
+
+    it 'should render update view' do
+      unsubscribe_patch
+
+      expect(response).to render_template('questions/update')
+    end
+  end
 end

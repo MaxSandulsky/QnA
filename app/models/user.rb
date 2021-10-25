@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :questions, inverse_of: 'author', foreign_key: 'author_id'
   has_many :comments, inverse_of: 'author', foreign_key: 'author_id'
   has_many :votes, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
+  has_many :subs, source: :question, through: :subscriptions
 
   scope :others, ->(user) { where.not(id: user.id) }
 

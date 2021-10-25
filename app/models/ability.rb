@@ -21,6 +21,12 @@ class Ability
 
   def admin_abilities
     can :manage, :all
+    cannot :subscribe, Question do |question|
+      question.subscribed?(user)
+    end
+    cannot :unsubscribe, Question do |question|
+      !question.subscribed?(user)
+    end
   end
 
   def user_abilities
@@ -30,6 +36,13 @@ class Ability
     can :read, [Reward, User]
 
     can :answers, Question
+
+    can :subscribe, Question do |question|
+      !question.subscribed?(user)
+    end
+    can :unsubscribe, Question do |question|
+      question.subscribed?(user)
+    end
 
     can :create, [Question, Answer, Comment, Reward]
     can :update, [Question, Answer], author_id: user.id

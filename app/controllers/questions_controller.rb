@@ -26,6 +26,7 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.build(question_params)
 
     if question.save
+      question.subscribers << current_user
       redirect_to question, notice: t('.success')
     else
       render :new
@@ -44,6 +45,16 @@ class QuestionsController < ApplicationController
   def remove_attachment
     question.files.find(params[:attachment_id]).purge
     render 'questions/remove_attachment'
+  end
+
+  def subscribe
+    question.subscribers << current_user
+    render :update
+  end
+
+  def unsubscribe
+    question.subscribed?(current_user)&.destroy
+    render :update
   end
 
   private

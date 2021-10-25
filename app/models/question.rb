@@ -6,6 +6,8 @@ class Question < ApplicationRecord
 
   has_many :answers, dependent: :destroy
   has_many :links, dependent: :destroy, as: :linkable
+  has_many :subscriptions, dependent: :destroy
+  has_many :subscribers, source: :user, through: :subscriptions
   has_one :reward, dependent: :destroy
 
   has_many_attached :files, dependent: :destroy
@@ -27,5 +29,9 @@ class Question < ApplicationRecord
 
   def self.load_with_attachments
     all.with_attached_files.includes(:links, :comments, :answers)
+  end
+
+  def subscribed?(user)
+    subscriptions.find_by(user_id: user.id)
   end
 end

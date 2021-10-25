@@ -33,6 +33,8 @@ ru:
     new:
       question_new: 'Задать новый вопрос'
     show:
+      subscribe: 'Подписаться'
+      unsubscribe: 'Отписаться'
       edit: "Изменить вопрос"
       delete: "Удалить вопрос"
       new_comment: 'Добавить комментарий'
