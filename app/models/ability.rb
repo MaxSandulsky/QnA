@@ -21,25 +21,38 @@ class Ability
 
   def admin_abilities
     can :manage, :all
+    cannot :subscribe, Question do |question|
+      question.subscribed?(user)
+    end
+    cannot :unsubscribe, Question do |question|
+      !question.subscribed?(user)
+    end
   end
 
   def user_abilities
     guest_abilities
-    can :me, User, id: user.id
 
-    can :read, Reward
+    can :me, User, id: user.id
+    can :read, [Reward, User]
 
     can :answers, Question
+
+    can :subscribe, Question do |question|
+      !question.subscribed?(user)
+    end
+    can :unsubscribe, Question do |question|
+      question.subscribed?(user)
+    end
 
     can :create, [Question, Answer, Comment, Reward]
     can :update, [Question, Answer], author_id: user.id
     can :destroy, [Question, Answer], author_id: user.id
 
     can :upvote, [Question, Answer] do |upvotable|
-      user.author_of?(upvotable)
+      !user.author_of?(upvotable)
     end
     can :downvote, [Question, Answer] do |upvotable|
-      user.author_of?(upvotable)
+      !user.author_of?(upvotable)
     end
 
     can :remove_attachment, [Question, Answer], author_id: user.id

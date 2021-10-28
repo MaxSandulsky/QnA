@@ -36,6 +36,14 @@ module QuestionsHelper
     link_to t('.new_comment'), new_comment_question_path, class: 'button-comment-question', remote: true
   end
 
+  def link_to_subscribe(question)
+    link_to t('.subscribe'), subscribe_question_path(question), class: 'button-subscribe-question', method: :patch, remote: true
+  end
+
+  def link_to_unsubscribe(question)
+    link_to t('.unsubscribe'), unsubscribe_question_path(question), class: 'button-unsubscribe-question', method: :patch, remote: true
+  end
+
   private
 
   def chevron_params(question, direction)

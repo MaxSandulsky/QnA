@@ -14,6 +14,11 @@ div class="question" id="question-#{question.id}"
   -if can?(:destroy, question)
     p= link_to_delete_question(question)
 
+  -if can?(:subscribe, question)
+    p= link_to_subscribe(question)
+  -if can?(:unsubscribe, question)
+    p= link_to_unsubscribe(question)
+
   .question-errors
     = render 'shared/errors', resource: question
   div class="form-question-edit hide" = render "questions/form", question: question
